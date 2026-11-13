@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dogwater Studios | Nabeel Mohammed</title>
+  <meta name="description" content="Dogwater Studios: Nabeel Mohammed's work as an Unreal Engine developer on Imprint.">
+  <meta name="theme-color" content="#6f51e4">
+  <script>
+    /* Project pages always show the loading screen, until their videos and graph are ready */
+    document.documentElement.classList.add("is-loading");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="loader" aria-hidden="true">
+    <canvas class="loader__canvas"></canvas>
+    <div class="loader__logo"></div>
+    <div class="loader__text">
+      <p class="loader__name">Nabeel Mohammed</p>
+      <div class="loader__track"><div class="loader__bar"></div></div>
+      <p class="loader__count">0%</p>
+    </div>
+  </div>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__name">Nabeel</span>
+        <span class="brand__role">Gameplay Programmer</span>
+      </a>
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav__links nav__panel" aria-label="Main">
+        <a href="work.html" aria-current="page">Work</a>
+        <a href="about.html">About Me</a>
+        <a href="#" data-link="resume">Resume</a>
+        <a class="nav__contact nav__contact--menu" href="#" data-link="email">Contact Me</a>
+      </nav>
+      <a class="nav__contact nav__contact--bar" href="#" data-link="email">Contact Me</a>
+    </div>
+  </header>
+  <main class="project">
+    <header class="container project-intro">
+      <h1 class="page-title">Dogwater Studios</h1>
+      <p class="project-intro__role">Unreal Engine Developer</p>
+      <dl class="project-facts">
+        <div><dt>Software:</dt><dd>Unreal Engine - Perforce - Trello</dd></div>
+        <div><dt>Languages:</dt><dd>C++ - Unreal Blueprint</dd></div>
+        <div><dt>Team Size:</dt><dd>8</dd></div>
+      </dl>
+      <div class="project-buttons">
+        <a class="project-button" href="#" data-link="dogView">View Here</a>
+      </div>
+    </header>
+
+    <section class="container project-hero" aria-label="Project overview">
+      <img class="project-hero__image" src="assets/images/dog-hero.webp" alt="Imprint key art: a character with a cybernetic face beside the Imprint logo" width="1600" height="897">
+      <p class="project-summary">Joining DogWater Studios in June 2026 as an Unreal Engine Developer for their flagship title, Imprint, I drove critical systems architecture and performance initiatives. From prototyping core mechanics to overhauling level layouts, I spearheaded the transition to a dynamic level streaming system and aggressively optimized runtime performance using Unreal Insights.</p>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">Technical Contributions</h2>
+      <div class="project-columns project-columns--4">
+        <p><strong>Vision-Driven Implementation:</strong> Collaborated directly with the Creative Director to translate high-level design concepts into 1-1 playable mechanics. Bridged the gap between initial paper design and production-ready technical logic.</p>
+        <p><strong>Gameplay Flow Overhauls:</strong> Reworked existing level layouts and refactored legacy mechanics to significantly improve pacing. Designed a cohesive gameplay loop that seamlessly guides players through the environment.</p>
+        <p><strong>Architectural Optimization:</strong> Aggressively optimized level layouts and environment architecture to hit strict performance targets. Streamlined active logic and asset placement to ensure a stable framerate without compromising the visual intent.</p>
+        <p><strong>Iterative Systems Refinement:</strong> Audited and overhauled mechanics to better align with the project's evolving vision. Adjusted core variables and system interactions to establish a much tighter, more responsive game feel.</p>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--small">Technical Challenges &amp; Solutions</h2>
+      <div class="challenge" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">1</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Concept to Fruition</h3>
+            <p>The project required a complex interactive tool known as the "Bitflipper." The primary hurdle was translating the Creative Director's standalone written concept and external mini-app into a fully cohesive, native in-game mechanic without losing the intended user experience.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>I engineered the device's logic from the ground up to create a 1-to-1 mechanical translation of the original concept. By closely collaborating with creative leadership, I integrated the external app's behavior directly into our Unreal Engine framework, ensuring the tool functioned seamlessly and naturally within the core gameplay loop.</p>
+          </div>
+        </div>
+        <div class="challenge__media">
+          <video class="project-video" data-hover-video data-wait="loadedmetadata"
+            src="assets/videos/dog-bitflipper.mp4" poster="assets/images/dog-bitflipper-poster.webp"
+            width="1138" height="720" style="aspect-ratio: 598 / 356" muted loop playsinline preload="metadata"
+            aria-label="Work-in-progress clip of the Bitflipper device"></video>
+          <span class="video-hint" aria-hidden="true">Hover to play</span>
+        </div>
+      </div>
+      <div class="challenge challenge--flip" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">2</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Multiplatform Performance Bottlenecks</h3>
+            <p>Preparing the game for multiplatform and console releases required hitting highly strict hardware performance targets. We needed to drastically reduce memory overhead and eliminate frame spikes without compromising the environment's scale or visual fidelity.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>I utilized Unreal Insights to aggressively profile CPU/GPU loads and identify critical rendering bottlenecks. Based on this telemetry, I introduced a comprehensive subleveling architecture, dividing massive monolithic environments into manageable, optimized chunks. This drastically reduced the active memory footprint, ensuring stable, compliant framerates across console hardware.</p>
+          </div>
+        </div>
+        <div class="challenge__media challenge__media--still">
+          <img src="assets/images/dog-sublevels.webp" alt="In-game performance stats showing a steady 60 FPS" width="1196" height="714" style="aspect-ratio: 598 / 357" decoding="async">
+        </div>
+      </div>
+      <div class="challenge" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">3</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Seamless World Traversal</h3>
+            <p>The project's legacy transition system relied on hard level-switching, which caused significant performance hitches, memory spikes, and immersion-breaking load screens that were detrimental to console optimization.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>I completely overhauled the transition logic by architecting a dynamic level streaming framework. Instead of abruptly loading whole new maps, the system intelligently streams adjacent sublevels in and out of memory based on player proximity and pacing. This eliminated hard loading screens and preserved strict memory budgets for console releases.</p>
+          </div>
+        </div>
+        <div class="challenge__media challenge__media--still">
+          <img src="assets/images/dog-streaming.webp" alt="Data table listing the streamed levels used for world traversal" width="1196" height="714" style="aspect-ratio: 598 / 357" decoding="async">
+        </div>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">Blueprint UE Graph</h2>
+      <div class="embed" data-embed>
+        <iframe src="https://blueprintue.com/render/x5lcp9g3/" title="Unreal Blueprint graph from Dogwater Studios" scrolling="no" allowfullscreen
+          data-wait="load" onload="this.dataset.loaded = '1'"></iframe>
+        <button class="embed__lock" type="button">Click to explore the graph</button>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--small project-heading--stack"><span>Reflections</span> Industry Experience</h2>
+      <div class="reflection">
+        <p>With Imprint actively in production for a Q2 2027 release, I am incredibly grateful for the daily opportunities to expand my technical skillset and push the boundaries of my engineering capabilities. I can't wait to share more detailed breakdowns of my work as we approach launch day. Until then, I invite you to explore my other projects!</p>
+      </div>
+    </section>
+
+    <section class="container project-section" aria-label="More projects">
+      <div class="work-grid">
+        <article class="card">
+          <a class="card__cover" href="ebt.html" aria-label="Everything But Titans: view project page"></a>
+          <div class="card__media"><img src="assets/images/everything-but-titans.webp" alt="Everything But Titans title art with three armoured titans" width="632" height="444" decoding="async"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay &amp; Network Programmer</span><h3 class="card__title">Everything But Titans</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.6</span><span>2026</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <a class="card__cover" href="cosmic.html" aria-label="Cosmic Assault: view project page"></a>
+          <div class="card__media"><img src="assets/images/cosmic-assault.webp" alt="Cosmic Assault title screen" width="632" height="444" decoding="async"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay Programmer</span><h3 class="card__title">Cosmic Assault</h3></div>
+            <div class="card__row card__row--small"><span>Unity 2022 LTS</span><span>2023</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__name">Nabeel Mohammed</p>
+      <div class="footer__links">
+        <a href="#" data-link="linkedin">LinkedIn</a>
+        <a href="#" data-link="github">GitHub</a>
+        <a href="#" data-link="email">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>

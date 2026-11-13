@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trinidadian Beach Scene | Nabeel Mohammed</title>
+  <meta name="description" content="Trinidadian Beach Scene: a real-time Caribbean coastline environment by Nabeel Mohammed, level designer and 3D artist.">
+  <meta name="theme-color" content="#6f51e4">
+  <script>
+    /* Project pages always show the loading screen, until their videos and graph are ready */
+    document.documentElement.classList.add("is-loading");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="loader" aria-hidden="true">
+    <canvas class="loader__canvas"></canvas>
+    <div class="loader__logo"></div>
+    <div class="loader__text">
+      <p class="loader__name">Nabeel Mohammed</p>
+      <div class="loader__track"><div class="loader__bar"></div></div>
+      <p class="loader__count">0%</p>
+    </div>
+  </div>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__name">Nabeel</span>
+        <span class="brand__role">Gameplay Programmer</span>
+      </a>
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav__links nav__panel" aria-label="Main">
+        <a href="work.html" aria-current="page">Work</a>
+        <a href="about.html">About Me</a>
+        <a href="#" data-link="resume">Resume</a>
+        <a class="nav__contact nav__contact--menu" href="#" data-link="email">Contact Me</a>
+      </nav>
+      <a class="nav__contact nav__contact--bar" href="#" data-link="email">Contact Me</a>
+    </div>
+  </header>
+  <main class="project">
+    <header class="container project-intro">
+      <h1 class="page-title">Trinidadian Beach Scene</h1>
+      <p class="project-intro__role">Level Designer &amp; 3D Artist</p>
+      <dl class="project-facts">
+        <div><dt>Software:</dt><dd>Unreal Engine 5.5 - Maya 2025 - Substance Painter</dd></div>
+        <div><dt>Team Size:</dt><dd>1</dd></div>
+      </dl>
+      <div class="project-buttons">
+        <a class="project-button" href="#" data-link="triniView">View Here</a>
+      </div>
+    </header>
+
+    <section class="container project-hero" aria-label="Project overview">
+      <video class="project-video project-video--main" data-autoplay-video data-wait="canplaythrough"
+        src="assets/videos/trini-trailer.mp4" poster="assets/images/trini-trailer-poster.webp"
+        width="1600" height="900" muted loop playsinline controls preload="auto"></video>
+      <p class="project-summary">A high-fidelity recreation of the coastlines of Trinidad and Tobago, this project served as a deep dive into balancing extreme visual fidelity with strict real-time performance budgets. By blending custom assets with industry-standard Unreal Engine plugins, I developed an atmospheric, motion-heavy environment that captures the vibrant energy of my home country.</p>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">Creative Pipeline</h2>
+      <div class="project-columns project-columns--4">
+        <p><strong>Modeling &amp; Integration:</strong> Authored custom architectural structures and environmental props in Maya, ensuring seamless visual parity when blended with high-resolution Quixel Megascans.</p>
+        <p><strong>Dynamic Fluid Systems:</strong> Leveraged the Unreal Water Plugin to architect a reactive ocean. Engineered the interaction between custom wave systems and floating actors, ensuring realistic buoyancy physics and accurate shoreline displacement.</p>
+        <p><strong>Environmental Animation:</strong> Breathed life into the scene using World Position Offset (WPO). Authored custom wind logic for foliage and fabric assets, creating an immersive tropical breeze effect without the heavy overhead of skeletal simulations.</p>
+        <p><strong>Atmospheric &amp; Character Logic:</strong> Integrated the Ultra Dynamic Sky system to drive physically accurate, real-time lighting, and utilized Mixamo animations to ground the scene's scale and narrative context.</p>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--small">Design Challenges &amp; Solutions</h2>
+      <div class="challenge" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">1</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Performance Optimization and Stability</h3>
+            <p>Pushing the engine to its limits with high-resolution geometry and complex fluid simulations initially caused severe hardware stress and frequent engine crashes while attempting to match the exact look of a real-life Caribbean beach</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>I implemented strict performance budgeting to resolve massive instability, overcoming dozens of engine crashes during development. Through rigorous iterative profiling, I stabilized the scene into a portfolio-ready real-time render. Additionally, I refactored the heavy water material, optimizing the dynamic waves and foam while precisely color-matching the water to the real-life coastlines of home.</p>
+          </div>
+        </div>
+        <div class="challenge__media challenge__media--still">
+          <img src="assets/images/trini-performance.webp" alt="The finished beach at sunset seen from a wooden deck" width="1196" height="714" style="aspect-ratio: 598 / 356" decoding="async">
+        </div>
+      </div>
+      <div class="challenge challenge--flip" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">2</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: From Postcard to Video</h3>
+            <p>A static environment wasn't enough to capture the true atmosphere of a Caribbean coastline. The goal was to build a living, reactive world that felt authentic in motion, moving beyond a simple "postcard" render.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>To achieve a cinematic, living feel, I prioritized secondary motion across the entire environment. By centralizing the buoyancy physics and layering WPO-driven wind systems across all foliage and fabric, I created a highly interactive shoreline. This vertex-level approach successfully "sold" the realism of the wind and water without incurring the heavy rendering costs associated with complex skeletal physics.</p>
+          </div>
+        </div>
+        <div class="challenge__media challenge__media--still">
+          <img src="assets/images/trini-motion.webp" alt="Palm trees and a sandcastle on the sunlit shoreline" width="1196" height="714" style="aspect-ratio: 598 / 357" decoding="async">
+        </div>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--small project-heading--stack"><span>Reflections</span> Stability and Aesthetics go Hand in Hand</h2>
+      <div class="reflection">
+        <p>This project taught me that "realism" is as much about <strong>stability</strong> as it is about aesthetics. Whether for interactive gameplay or virtual production, a beautiful scene is only successful if it is reliable. I walked away with a deep understanding of how to bridge the gap between "pushing the envelope" and maintaining a production-ready environment.</p>
+        <div class="reflection-cards">
+          <div class="reflection-card">
+            <h3>Reactive Environments</h3>
+            <p>Integrated dynamic water systems and buoyancy physics to transform a static 3D landscape into a living, interactive ecosystem that responds to physical actors.</p>
+          </div>
+          <div class="reflection-card">
+            <h3>Performance Budgeting</h3>
+            <p>Resolved severe engine instability by rigorously profiling and optimizing high-resolution geometry and fluid simulations to maintain a stable real-time render.</p>
+          </div>
+          <div class="reflection-card">
+            <h3>Vertex Optimization</h3>
+            <p>Replaced expensive skeletal simulations with custom World Position Offset logic to achieve realistic environmental motion at a fraction of the rendering cost.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container project-section" aria-label="More projects">
+      <div class="work-grid">
+        <article class="card">
+          <a class="card__cover" href="cave.html" aria-label="Cave of Papa Bois: view project page"></a>
+          <div class="card__media"><img src="assets/images/papa-bois.webp" alt="Cave interior with a glowing carved stone" width="632" height="444" decoding="async"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Level Designer &amp; 3D Artist</span><h3 class="card__title">Cave of Papa Bois</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.3 | Maya 2024</span><span>2023</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <a class="card__cover" href="serve.html" aria-label="SCADServe X Ronald McDonald House: view project page"></a>
+          <div class="card__media"><img src="assets/images/scadserve-rmh.webp" alt="Ronald McDonald House and SCAD Serve logos" width="632" height="444" decoding="async"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Technical and VR Manager</span><h3 class="card__title">SCADServe X Ronald McDonald House</h3></div>
+            <div class="card__row card__row--small"><span></span><span>2026</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__name">Nabeel Mohammed</p>
+      <div class="footer__links">
+        <a href="#" data-link="linkedin">LinkedIn</a>
+        <a href="#" data-link="github">GitHub</a>
+        <a href="#" data-link="email">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>

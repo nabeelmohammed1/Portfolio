@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nabeel Mohammed | Gameplay Programmer & Designer</title>
+  <meta name="description" content="Portfolio of Nabeel Mohammed, gameplay programmer and designer.">
+  <meta name="theme-color" content="#6f51e4">
+  <script>
+    /* Show the loading screen once per visit, before first paint */
+    try { if (!sessionStorage.getItem("loaderSeen")) document.documentElement.classList.add("is-loading"); } catch (err) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="loader" aria-hidden="true">
+    <canvas class="loader__canvas"></canvas>
+    <div class="loader__logo"></div>
+    <div class="loader__text">
+      <p class="loader__name">Nabeel Mohammed</p>
+      <div class="loader__track"><div class="loader__bar"></div></div>
+      <p class="loader__count">0%</p>
+    </div>
+  </div>
+  <canvas class="page-pixels" aria-hidden="true"></canvas>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__name">Nabeel</span>
+        <span class="brand__role">Gameplay Programmer</span>
+      </a>
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav__links nav__panel" aria-label="Main">
+        <a href="work.html">Work</a>
+        <a href="about.html">About Me</a>
+        <a href="#" data-link="resume">Resume</a>
+        <a class="nav__contact nav__contact--menu" href="#" data-link="email">Contact Me</a>
+      </nav>
+      <a class="nav__contact nav__contact--bar" href="#" data-link="email">Contact Me</a>
+    </div>
+  </header>
+  <main>
+    <section class="hero" data-trail>
+      <div class="trail" aria-hidden="true"></div>
+      <h1 class="hero__name">Nabeel Mohammed</h1>
+      <p class="hero__role">Gameplay Programmer <span class="hero__bar">|</span> Designer</p>
+      <a class="hero__scroll" href="#selected-work">
+        Projects
+        <svg class="hero__scroll-icon" viewBox="0 0 7 9" aria-hidden="true">
+          <g><rect x="0" y="0" width="1" height="1"/><rect x="1" y="1" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/></g>
+          <g><rect x="0" y="5" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="2" y="7" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="4" y="7" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/></g>
+        </svg>
+      </a>
+    </section>
+    <section class="container home-work" id="selected-work" aria-label="Selected work">
+      <div class="work-grid">
+        <article class="card" id="project-rodent">
+          <a class="card__cover" href="rod3nt.html" aria-label="Project Rod3nt: view project page"></a>
+          <div class="card__media"><img src="assets/images/project-rodent.webp" alt="Project Rod3nt title art" width="632" height="444" loading="lazy"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay Programmer &amp; QA Engineer</span><h3 class="card__title">Project Rod3nt</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.6</span><span>2025-2026</span></div>
+          </div>
+        </article>
+        <article class="card" id="living-bubble">
+          <a class="card__cover" href="notlb.html" aria-label="Night of the Living Bubble: view project page"></a>
+          <div class="card__media"><img src="assets/images/living-bubble.webp" alt="Night of the Living Bubble title art" width="632" height="444" loading="lazy"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay Programmer &amp; Technical Artist</span><h3 class="card__title">Night of the Living Bubble</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.5</span><span>2025-2026</span></div>
+          </div>
+        </article>
+        <article class="card" id="dogwater-studios">
+          <a class="card__cover" href="dog.html" aria-label="DogWater Studios: view project page"></a>
+          <div class="card__media"><img src="assets/images/dogwater-studios.webp" alt="DogWater Studios logo" width="632" height="444" loading="lazy"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Unreal Engine Developer</span><h3 class="card__title">DogWater Studios</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.7 | 5.8</span><span>2026</span></div>
+          </div>
+        </article>
+        <article class="card" id="everything-but-titans">
+          <a class="card__cover" href="ebt.html" aria-label="Everything But Titans: view project page"></a>
+          <div class="card__media"><img src="assets/images/everything-but-titans.webp" alt="Everything But Titans title art with three armoured titans" width="632" height="444" loading="lazy"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay &amp; Network Programmer</span><h3 class="card__title">Everything But Titans</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.6</span><span>2026</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="container more">
+      <h2 class="section-title">More of what I’ve been up to</h2>
+      <div class="work-grid">
+        <div class="card__media"><img src="assets/images/scad-group.webp" alt="Group photo at a SCAD booth" width="632" height="444" loading="lazy"></div>
+        <div class="card__media"><img src="assets/images/graduation.webp" alt="Nabeel receiving a diploma at SCAD graduation" width="632" height="444" loading="lazy"></div>
+        <div class="card__media"><img src="assets/images/team-photo.webp" alt="Team group photo at an event" width="632" height="444" loading="lazy"></div>
+        <div class="card__media"><img src="assets/images/ai-summit.webp" alt="Panel on stage at an AI summit" width="632" height="444" loading="lazy"></div>
+      </div>
+      <a class="button" href="about.html">About Me</a>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__name">Nabeel Mohammed</p>
+      <div class="footer__links">
+        <a href="#" data-link="linkedin">LinkedIn</a>
+        <a href="#" data-link="github">GitHub</a>
+        <a href="#" data-link="email">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Rod3nt | Nabeel Mohammed</title>
+  <meta name="description" content="Project Rod3nt: a stealth action game where Nabeel Mohammed was gameplay programmer and QA engineer.">
+  <meta name="theme-color" content="#6f51e4">
+  <script>
+    /* Project pages always show the loading screen, until their videos and graph are ready */
+    document.documentElement.classList.add("is-loading");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="loader" aria-hidden="true">
+    <canvas class="loader__canvas"></canvas>
+    <div class="loader__logo"></div>
+    <div class="loader__text">
+      <p class="loader__name">Nabeel Mohammed</p>
+      <div class="loader__track"><div class="loader__bar"></div></div>
+      <p class="loader__count">0%</p>
+    </div>
+  </div>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__name">Nabeel</span>
+        <span class="brand__role">Gameplay Programmer</span>
+      </a>
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav__links nav__panel" aria-label="Main">
+        <a href="work.html" aria-current="page">Work</a>
+        <a href="about.html">About Me</a>
+        <a href="#" data-link="resume">Resume</a>
+        <a class="nav__contact nav__contact--menu" href="#" data-link="email">Contact Me</a>
+      </nav>
+      <a class="nav__contact nav__contact--bar" href="#" data-link="email">Contact Me</a>
+    </div>
+  </header>
+  <main class="project">
+    <header class="container project-intro">
+      <h1 class="page-title">Project Rod3nt</h1>
+      <p class="project-intro__role">Gameplay Programmer &amp; QA Engineer</p>
+      <dl class="project-facts">
+        <div><dt>Software:</dt><dd>Unreal Engine - Jetbrains Rider - Perforce - Jira - Figma - Steamworks</dd></div>
+        <div><dt>Languages:</dt><dd>C++ - Unreal Blueprint - Python</dd></div>
+        <div><dt>Team Size:</dt><dd>15</dd></div>
+      </dl>
+      <div class="project-buttons">
+        <a class="project-button" href="https://store.steampowered.com/app/4558280/Project_Rod3nt/" target="_blank" rel="noopener noreferrer">Play Here</a>
+        <a class="project-button" href="#" data-link="rod3ntView">View Here</a>
+      </div>
+    </header>
+
+    <section class="container project-hero" aria-label="Project overview">
+      <video class="project-video project-video--main" data-autoplay-video data-wait="canplaythrough"
+        src="assets/videos/rod3nt-trailer.mp4" poster="assets/images/rod3nt-trailer-poster.webp"
+        width="1600" height="900" muted loop playsinline controls preload="auto"></video>
+      <p class="project-summary">Project Rod3nt is an action adventure game with similarities to Untitled Goose Game and Hitman but with a twist. You play as cybernetic rodents sent back in time to commit an assassination that will change history forever.</p>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">Technical Architecture</h2>
+      <div class="project-columns project-columns--4">
+        <p><strong>AI Optimization:</strong> Developed custom C++ classes to manipulate AI Perception variables at runtime, overcoming Blueprint limitations allowing for a better gameplay feel.</p>
+        <p><strong>GAS Integration:</strong> Implemented Unreal’s Gameplay Ability System (GAS) to build a modular, data-driven framework. This allowed for rapid prototyping of rodent abilities and status effects, ensuring a scalable and stable stealth system.</p>
+        <p><strong>Systems Engineering:</strong> Led the programming of core mechanics and the gameplay loop, ensuring seamless interaction between player controls and complex environmental triggers.</p>
+        <p><strong>Production Pipeline:</strong> Managed the project's version control (Git &amp; Perforce) and directed the QA process, translating data from extensive playtesting into polished gameplay sprints.</p>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--small">Technical Challenges &amp; Solutions</h2>
+      <div class="challenge" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">1</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Managing Rapid Mechanic Iteration</h3>
+            <p>With a "fail-fast" development philosophy, we were constantly testing new cybernetic rodent abilities, which caused our character Blueprint to become bloated and also added the issue of removing/disabling an ability could cause unnecessary errors and abilities might have dependencies from other items.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>I integrated <strong>Unreal’s Gameplay Ability System (GAS)</strong> to decouple ability logic from the base character. This modular approach allowed me to create <strong>base abilities</strong> that the team could build child abilities from to prototype, balance and ideate on abilities without the risk of breaking items they didn't know how to fix. This architecture helped me in development as it allowed for some of the development work to be done by other members with just the optimization and clean up left for me to do.</p>
+          </div>
+        </div>
+        <div class="challenge__media">
+          <video class="project-video" data-hover-video data-wait="loadedmetadata"
+            src="assets/videos/rod3nt-flying.mp4" poster="assets/images/rod3nt-flying-poster.webp"
+            width="1202" height="720" style="aspect-ratio: 598 / 356" muted loop playsinline preload="metadata"
+            aria-label="Gameplay clip: a rodent flying over the snowy base"></video>
+          <span class="video-hint" aria-hidden="true">Hover to play</span>
+        </div>
+      </div>
+      <div class="challenge challenge--flip" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">2</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Optimization</h3>
+            <p>High actor density from <strong>Procedural Content Generation (PCG) graphs</strong> and active <strong>Enemy AI</strong> exceeded performance budgets, causing game thread bottlenecks that resulted in <strong>sub-30 FPS</strong> runtime execution on target hardware.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>Utilizing <strong>Unreal Insights</strong>, I profiled the CPU and rendering pipelines to isolate critical overhead. I executed a targeted optimization pass by <strong>disabling dynamic shadow casting</strong> to reduce draw calls on non-essential assets, migrating complex mesh collisions to simplified primitive bounds, and engineering an aggressive culling and tick-management system for out-of-scope Enemy AI. These adjustments eliminated the bottlenecks, successfully restoring runtime performance to a <strong>stable 60 FPS.</strong></p>
+          </div>
+        </div>
+        <div class="challenge__media challenge__media--still">
+          <img src="assets/images/rod3nt-optimisation.webp" alt="Unreal Blueprint graph used in the optimization pass" width="1400" height="836" style="aspect-ratio: 598 / 357" decoding="async">
+        </div>
+      </div>
+      <div class="challenge" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">3</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Scalable AI Perception</h3>
+            <p>For a "sandbox-style" stealth game, we needed a high volume of AI guards that felt robotic and predictable but also challenging for the player. Originally, the guards were ideated and developed as <strong>complex "smart" AI,</strong> with human like decision making. After many playtesting sessions, both within the team and externally, it was decided the AI needed to be reworked.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>I transitioned the Behavior Tree from a large complex, multi-decision graph to a simpler robotic styled graph limiting the decision making to 3 main paths: <strong>Heard Noise, Saw Player, Move on spline</strong>. With this style, the players were able to better understand the guards and learn how to avoid them. While this decision changed the original idea of how the guards operated, it helped improve the overall feel and enjoyment of the players. Alongside the AI logic, I developed a <strong>custom C++ function</strong> that would allow me to adjust the perception values during runtime particularly the sight angle and radius, this allowed for a new mechanic where the players can temporarily disable the lights and thus reduce the vision of the guard.</p>
+          </div>
+        </div>
+        <div class="challenge__media">
+          <video class="project-video" data-hover-video data-wait="loadedmetadata"
+            src="assets/videos/rod3nt-enemy-ai.mp4" poster="assets/images/rod3nt-enemy-ai-poster.webp"
+            width="1202" height="720" style="aspect-ratio: 598 / 357" muted loop playsinline preload="metadata"
+            aria-label="Gameplay clip: AI guard perception debug view at sunset"></video>
+          <span class="video-hint" aria-hidden="true">Hover to play</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">Blueprint UE Graph</h2>
+      <div class="embed" data-embed>
+        <iframe src="https://blueprintue.com/render/ji1ua83e/" title="Unreal Blueprint graph from Project Rod3nt" scrolling="no" allowfullscreen
+          data-wait="load" onload="this.dataset.loaded = '1'"></iframe>
+        <button class="embed__lock" type="button">Click to explore the graph</button>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">Data Driven Level Design</h2>
+      <div class="project-columns project-columns--3">
+        <p><strong>Telemetry Collection:</strong> Developed a <strong>custom C++ function</strong> in Unreal to capture (X, Y, Z) coordinates at fixed intervals during gameplay.</p>
+        <p><strong>Automated Export:</strong> Streamlined the logging process to output high-fidelity movement data into a structured .csv format upon level completion or player death.</p>
+        <p><strong>Visualization &amp; Analysis:</strong> Developed a Python script to convert the CSV and generate <strong>2D heatmaps</strong>. By filtering data based on the Z-axis, I was able to isolate and analyze player behavior specifically for the "Above Ground" and "Bunker" sectors.</p>
+      </div>
+      <img class="project-image" src="assets/images/rod3nt-heatmaps.webp" alt="Two player-movement heatmaps, one for the surface and one for the bunker, showing heavily and rarely visited paths" width="2100" height="881" decoding="async">
+      <p class="project-note"><strong>Solution:</strong><br>The heatmaps revealed that players were consistently bypassing entire sections of the map. Using this data, we strategically added new bunker entrances and introduced unique environmental interactions to drive player interest, resulting in a 40% increase in exploration across underutilized zones.</p>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--small project-heading--stack"><span>Reflections</span> Concept To Capstone</h2>
+      <div class="reflection">
+        <p><strong>Project Rod3nt</strong> is the culmination of my four-year journey in game development. It served as the ultimate proving ground for the technical and creative skills I’ve acquired, allowing me to take an active role in every stage of the production lifecycle.</p>
+        <p>While my primary focus was leading the engineering and technical strategy, I took pride in contributing to every facet of the game’s success:</p>
+        <div class="reflection-cards">
+          <div class="reflection-card">
+            <h3>End-to-End UI/UX</h3>
+            <p>I designed and iterated on all final UI elements, ensuring the "cybernetic" aesthetic provided clear, tactile player feedback for our complex stealth systems.</p>
+          </div>
+          <div class="reflection-card">
+            <h3>Full-Stack Execution</h3>
+            <p>From architecting low-level C++ systems to refining the front-end interface, I bridged the gap between backend logic and the player-facing experience.</p>
+          </div>
+          <div class="reflection-card">
+            <h3>Leadership &amp; Synthesis</h3>
+            <p>Leading this project taught me how to synthesize data, design, and code into a cohesive, shipping-ready title.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container project-section" aria-label="More projects">
+      <div class="work-grid">
+        <article class="card">
+          <a class="card__cover" href="notlb.html" aria-label="Night of the Living Bubble: view project page"></a>
+          <div class="card__media"><img src="assets/images/living-bubble.webp" alt="Night of the Living Bubble title art" width="632" height="444" decoding="async"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay Programmer &amp; Technical Artist</span><h3 class="card__title">Night of the Living Bubble</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.5</span><span>2025-2026</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <a class="card__cover" href="dog.html" aria-label="DogWater Studios: view project page"></a>
+          <div class="card__media"><img src="assets/images/dogwater-studios.webp" alt="DogWater Studios logo" width="632" height="444" decoding="async"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Unreal Engine Developer</span><h3 class="card__title">DogWater Studios</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.7 | 5.8</span><span>2026</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__name">Nabeel Mohammed</p>
+      <div class="footer__links">
+        <a href="#" data-link="linkedin">LinkedIn</a>
+        <a href="#" data-link="github">GitHub</a>
+        <a href="#" data-link="email">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>

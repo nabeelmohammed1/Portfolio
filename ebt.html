@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Everything but Titans | Nabeel Mohammed</title>
+  <meta name="description" content="Everything but Titans: a jetpack arena shooter prototype where Nabeel Mohammed was gameplay and network programmer.">
+  <meta name="theme-color" content="#6f51e4">
+  <script>
+    /* Project pages always show the loading screen, until their videos and graph are ready */
+    document.documentElement.classList.add("is-loading");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="loader" aria-hidden="true">
+    <canvas class="loader__canvas"></canvas>
+    <div class="loader__logo"></div>
+    <div class="loader__text">
+      <p class="loader__name">Nabeel Mohammed</p>
+      <div class="loader__track"><div class="loader__bar"></div></div>
+      <p class="loader__count">0%</p>
+    </div>
+  </div>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__name">Nabeel</span>
+        <span class="brand__role">Gameplay Programmer</span>
+      </a>
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav__links nav__panel" aria-label="Main">
+        <a href="work.html" aria-current="page">Work</a>
+        <a href="about.html">About Me</a>
+        <a href="#" data-link="resume">Resume</a>
+        <a class="nav__contact nav__contact--menu" href="#" data-link="email">Contact Me</a>
+      </nav>
+      <a class="nav__contact nav__contact--bar" href="#" data-link="email">Contact Me</a>
+    </div>
+  </header>
+  <main class="project">
+    <header class="container project-intro">
+      <h1 class="page-title">Everything but Titans</h1>
+      <p class="project-intro__role">Gameplay &amp; Network Programmer</p>
+      <dl class="project-facts">
+        <div><dt>Software:</dt><dd>Unreal Engine - Github - JetBrains Rider - Steamworks</dd></div>
+        <div><dt>Languages:</dt><dd>C++ - Unreal Blueprint</dd></div>
+        <div><dt>Team Size:</dt><dd>1</dd></div>
+      </dl>
+      <div class="project-buttons">
+        <a class="project-button" href="#" data-link="ebtView">View Here</a>
+      </div>
+    </header>
+
+    <section class="container project-hero" aria-label="Project overview">
+      <video class="project-video project-video--main" data-autoplay-video data-wait="canplaythrough"
+        src="assets/videos/ebt-trailer.mp4" poster="assets/images/ebt-trailer-poster.webp"
+        width="1600" height="900" muted loop playsinline controls preload="auto"></video>
+      <p class="project-summary">Everything but Titans is a fast-paced, shooter prototype inspired by the fast-paced "jetpack" eras of classic FPS titles. Designed from the ground up for both single-player and fully replicated multiplayer, this project served as a deep dive into advanced Unreal Engine frameworks, low-level C++ architecture, and real-world networking.</p>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">Technical Architecture</h2>
+      <div class="project-columns project-columns--4">
+        <p><strong>Advanced GAS via Custom C++:</strong> By building custom Abilities and intricate Gameplay Cues, I created a highly scalable framework. This allowed me to push GAS to its limits, turning complex mechanics like jetpack jumping, momentum-based dashes, and more into modular, data-driven assets that could be endlessly combined and iterated upon without bloating the codebase. Overall for this prototype, I architected 10 different movement/combat abilities for players to use.</p>
+        <p><strong>Server Logic:</strong> To move beyond simple LAN testing, I integrated the Steam SDK (Steamworks) to handle session creation, matchmaking, and live player connections. I conducted extensive research into server-authoritative architecture to ensure fairness in a high-mobility environment.</p>
+        <p><strong>Replication:</strong> By using GAS's built-in client-side prediction, I ensured that high-speed aerial combat felt instantly responsive for the client while remaining perfectly synchronized across the Steam network. I created custom functions that help the clients update the server with the player's locations when they grappled/dashed as the speed the players moved at caused hiccups with the server/client synchronization.</p>
+        <p><strong>AI Research:</strong> For the enemy bots, I explicitly chose to experiment with Unreal's newer State Tree system over traditional Behavior Trees. Through my research, I determined that while Behavior Trees are excellent for complex, long-term hierarchical tasks, State Trees provide a much tighter, highly optimized state-machine structure.</p>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--small">Technical Challenges &amp; Solutions</h2>
+      <div class="challenge" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">1</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Creating the “Feel” of Combat</h3>
+            <p>Because aerial mobility is the defining pillar of a jetpack shooter, establishing tight, precise, and momentum-driven traversal mechanics was absolutely critical to the game's core loop.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>By centralizing movement and combat logic within my C++ GAS framework, I established a highly modular environment for rapid iteration. This data-driven approach allowed me to continuously tweak exposed parameters like gravity scaling, thrust velocity, and air-strafing in real-time, enabling rapid fine-tuning until the aerial combat felt fluid, responsive, and highly rewarding.</p>
+          </div>
+        </div>
+        <div class="challenge__media">
+          <video class="project-video" data-hover-video data-wait="loadedmetadata"
+            src="assets/videos/ebt-movement.mp4" poster="assets/images/ebt-movement-poster.webp"
+            width="1280" height="720" style="aspect-ratio: 598 / 356" muted loop playsinline preload="metadata"
+            aria-label="Gameplay clip: jetpack movement and dashing through the arena"></video>
+          <span class="video-hint" aria-hidden="true">Hover to play</span>
+        </div>
+      </div>
+      <div class="challenge challenge--flip" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">2</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Replication</h3>
+            <p>A major technical hurdle was mitigating server-client latency and resolving timing discrepancies to ensure high-speed aerial movement felt responsive in a multiplayer environment without rubber-banding.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>To bridge this gap, I deeply leveraged the prediction architecture of the Unreal Engine Gameplay Ability System (GAS). Instead of waiting for server authority, I configured client-side prediction for all traversal abilities. The local client immediately executes the movement while simultaneously sending RPCs for background server validation. By engineering custom C++ logic to fine-tune how Target Data and state variables replicate, I successfully masked network latency, achieving seamless, authoritative, lag-free aerial combat.</p>
+          </div>
+        </div>
+        <div class="challenge__media">
+          <video class="project-video" data-hover-video data-wait="loadedmetadata"
+            src="assets/videos/ebt-server.mp4" poster="assets/images/ebt-server-poster.webp"
+            width="1278" height="720" style="aspect-ratio: 598 / 357" muted loop playsinline preload="metadata"
+            aria-label="Clip: the multiplayer lobby running as a server with connected players"></video>
+          <span class="video-hint" aria-hidden="true">Hover to play</span>
+        </div>
+      </div>
+      <div class="challenge" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">3</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Unique Abilities</h3>
+            <p>In a high-mobility arena shooter, the core challenge was designing a suite of abilities that felt mechanically distinct, encouraging players to master their individual nuances and tactical use-cases.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>I engineered a modular set of movement and combat abilities tailored for distinct playstyles. The mobility suite features omni-directional dashing, networked double jumping, wall running, and grappling hooks, while the combat suite includes tactical clones and grenade mechanics.</p>
+          </div>
+        </div>
+        <div class="challenge__media">
+          <video class="project-video" data-hover-video data-wait="loadedmetadata"
+            src="assets/videos/ebt-abilities.mp4" poster="assets/images/ebt-abilities-poster.webp"
+            width="1278" height="720" style="aspect-ratio: 598 / 357" muted loop playsinline preload="metadata"
+            aria-label="Gameplay clip: a client using combat abilities"></video>
+          <span class="video-hint" aria-hidden="true">Hover to play</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">Blueprint UE Graph</h2>
+      <div class="embed" data-embed>
+        <iframe src="https://blueprintue.com/render/bilo_ceu/" title="Unreal Blueprint graph from Everything but Titans" scrolling="no" allowfullscreen
+          data-wait="load" onload="this.dataset.loaded = '1'"></iframe>
+        <button class="embed__lock" type="button">Click to explore the graph</button>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">Behavior Tree VS State Trees</h2>
+      <p class="project-intro-text">For the enemy bots in this project, I explicitly chose to build their logic using Unreal's State Tree system instead of the traditional Behavior Trees I normally use. My goal was to force myself out of my comfort zone and see how this newer framework handled the fast-paced, reaction-heavy AI required for a shooter.</p>
+      <div class="project-columns project-columns--3">
+        <p><strong>Data Binding vs. Blackboards</strong> Switching from Behavior Trees gave me deep insight into State Tree property binding. I learned how to architect strict, state-driven logic, making it easier to manage complex combat phases without relying on tangled, Blackboard variables.</p>
+        <p><strong>Explicit States</strong> Stepping out of my comfort zone revealed how State Trees excel at managing highly specific scenarios. I learned that explicitly defining states, like evasive dashing, provided a more scalable way to build AI capable of tracking omni-directional movement.</p>
+        <p><strong>Balancing Visibility with Performance</strong> This technical experiment highlighted the difference between visual debugging and execution speed. I discovered that although Behavior Trees provide a top-down flow for catching logic errors, State Trees strip away that heavy overhead, offering the raw speed necessary for fast-twitch enemy AI.</p>
+      </div>
+      <div class="challenge__media analysis-media">
+        <video class="project-video" data-hover-video data-wait="loadedmetadata"
+          src="assets/videos/ebt-state-tree.mp4" poster="assets/images/ebt-state-tree-poster.webp"
+          width="1108" height="720" muted loop playsinline preload="metadata"
+          aria-label="Clip: a State Tree enemy bot tracking the player"></video>
+        <span class="video-hint" aria-hidden="true">Hover to play</span>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--small project-heading--stack"><span>Reflections</span> Server is always Right</h2>
+      <div class="reflection">
+        <p>A Deep Appreciation for Systems Engineering. This networking challenge forced me to dive into the absolute depths of GAS, and it turned out to be the most rewarding part of the project. Unpacking how Unreal handles ability replication, attribute scaling, and rollback under the hood was a massive gain for me as a systems programmer.</p>
+        <p>The modularity and raw power of GAS have completely changed how I approach game architecture. I genuinely enjoyed navigating its notoriously steep learning curve, and I am incredibly excited to continue exploring, extending, and pushing the boundaries of what this framework can do in my future projects.</p>
+        <div class="reflection-cards">
+          <div class="reflection-card">
+            <h3>Test Everything</h3>
+            <p>Throughout development, I constantly tested mechanics outside the editor. Frequently with local packaged standalone builds and online sessions guaranteed flawless gameplay and network parity.</p>
+          </div>
+          <div class="reflection-card">
+            <h3>PvE vs PvP</h3>
+            <p>Evolving the single-player demo into a fully replicated PvP experience was a pivotal milestone, cementing my practical understanding of server authority and RPC optimization.</p>
+          </div>
+          <div class="reflection-card">
+            <h3>Complex Bots</h3>
+            <p>Engineering these State Tree AI bots required continuous iteration, ensuring their logic and navigation kept pace with the players' high-speed, omni-directional aerial mobility.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container project-section" aria-label="More projects">
+      <div class="work-grid">
+        <article class="card">
+          <a class="card__cover" href="cosmic.html" aria-label="Cosmic Assault: view project page"></a>
+          <div class="card__media"><img src="assets/images/cosmic-assault.webp" alt="Cosmic Assault title screen" width="632" height="444" decoding="async"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay Programmer</span><h3 class="card__title">Cosmic Assault</h3></div>
+            <div class="card__row card__row--small"><span>Unity 2022 LTS</span><span>2023</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <a class="card__cover" href="trini.html" aria-label="Trinidadian Beach Scene: view project page"></a>
+          <div class="card__media"><img src="assets/images/beach-scene.webp" alt="Beach scene at sunset with a bucket in the sand" width="632" height="444" decoding="async"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Level Designer &amp; 3D Artist</span><h3 class="card__title">Trinidadian Beach Scene</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.5 | Maya 2025</span><span>2024</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__name">Nabeel Mohammed</p>
+      <div class="footer__links">
+        <a href="#" data-link="linkedin">LinkedIn</a>
+        <a href="#" data-link="github">GitHub</a>
+        <a href="#" data-link="email">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>

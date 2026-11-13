@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Me | Nabeel Mohammed</title>
+  <meta name="description" content="About Nabeel Mohammed: experience, projects and education.">
+  <meta name="theme-color" content="#6f51e4">
+  <script>
+    /* Show the loading screen once per visit, before first paint */
+    try { if (!sessionStorage.getItem("loaderSeen")) document.documentElement.classList.add("is-loading"); } catch (err) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="loader" aria-hidden="true">
+    <canvas class="loader__canvas"></canvas>
+    <div class="loader__logo"></div>
+    <div class="loader__text">
+      <p class="loader__name">Nabeel Mohammed</p>
+      <div class="loader__track"><div class="loader__bar"></div></div>
+      <p class="loader__count">0%</p>
+    </div>
+  </div>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__name">Nabeel</span>
+        <span class="brand__role">Gameplay Programmer</span>
+      </a>
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav__links nav__panel" aria-label="Main">
+        <a href="work.html">Work</a>
+        <a href="about.html" aria-current="page">About Me</a>
+        <a href="#" data-link="resume">Resume</a>
+        <a class="nav__contact nav__contact--menu" href="#" data-link="email">Contact Me</a>
+      </nav>
+      <a class="nav__contact nav__contact--bar" href="#" data-link="email">Contact Me</a>
+    </div>
+  </header>
+  <main class="container about-page">
+    <h1 class="page-title">About Me</h1>
+    <section class="intro">
+      <img class="intro__photo" src="assets/images/portrait.webp" alt="Nabeel standing with arms crossed beside a rabbit-shaped topiary" width="317" height="432">
+      <div class="intro__text">
+        <p>Versatile Gameplay Programmer | Designer crafting gameplay, levels, and systems that challenge and inspire.</p>
+        <p>I strive to create experiences that engage players and encourage them to keep returning. My passion for Game Development started when I was younger and used games as a means to escape reality and become immersed in the world.</p>
+        <p>My goal is to create similar experiences for players to engage and enjoy.</p>
+      </div>
+    </section>
+    <section class="resume-section">
+      <h2 class="section-title">Experiences</h2>
+      <ul class="resume-list">
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="dogwater-studios">Unreal Engine Developer</p><p class="resume-item__org">Dogwater Studios</p></div>
+          <p class="resume-item__date">Jun 2026 - Present</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="studio-nailgun">Gameplay Programmer &amp; Technical Artist</p><p class="resume-item__org">Studio Nailgun</p></div>
+          <p class="resume-item__date">Jan 2025 - Present</p>
+        </li>
+      </ul>
+    </section>
+    <section class="resume-section">
+      <h2 class="section-title">Projects</h2>
+      <ul class="resume-list">
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="scadserve-x-ronald-mcdonald-house">Technical &amp; VR Manager</p><p class="resume-item__org">SCADServe X Ronald McDonald House</p></div>
+          <p class="resume-item__date">Jan 2026 - Mar 2026</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="project-rod3nt">Gameplay Programmer &amp; QA Engineer</p><p class="resume-item__org">Project Rod3nt</p></div>
+          <p class="resume-item__date">Sept 2025 - May 2026</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="scadpro-x-provost">Project Manager</p><p class="resume-item__org">SCADPRO X Provost</p></div>
+          <p class="resume-item__date">Jan 2025 - Mar 2025</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="xolo-and-the-forgotten-gods">UI Programmer</p><p class="resume-item__org">Xolo and the Forgotten Gods</p></div>
+          <p class="resume-item__date">Sept 2024 - May 2025</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="scour">Gameplay Programmer</p><p class="resume-item__org">Scour</p></div>
+          <p class="resume-item__date">Sept 2024 - May 2025</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="scadpro-rapid-fire-x-deloitte">Level &amp; Lighting Designer</p><p class="resume-item__org">SCADPRO Rapid Fire X Deloitte</p></div>
+          <p class="resume-item__date">Mar 2024 - May 2024</p>
+        </li>
+      </ul>
+    </section>
+    <section class="resume-section">
+      <h2 class="section-title">Game Jams</h2>
+      <ul class="resume-list">
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="luck-of-the-maze-unity-game-jam-2026">Gameplay Programmer &amp; Designer</p><p class="resume-item__org">Luck of the Maze- Unity Game Jam 2026</p></div>
+          <p class="resume-item__date">Nov 2026</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="under-the-lens-global-game-jam-2026">Gameplay Programmer</p><p class="resume-item__org">Under the Lens- Global Game Jam 2026</p></div>
+          <p class="resume-item__date">Jan 2026</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="night-of-the-living-bubble-global-game-jam-2025">Gameplay Programmer &amp; Technical Designer</p><p class="resume-item__org">Night of the Living Bubble- Global Game Jam 2025</p></div>
+          <p class="resume-item__date">Jan 2025</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="eye-love-you-global-game-jam-2024">UI Programmer &amp; Designer</p><p class="resume-item__org">Eye Love You- Global Game Jam 2024</p></div>
+          <p class="resume-item__date">Jan 2024</p>
+        </li>
+      </ul>
+    </section>
+    <section class="resume-section">
+      <h2 class="section-title">Education</h2>
+      <ul class="resume-list">
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="savannah-college-of-art-and-design">BFA Interactive Design and Game Development (Magna Cum Laude)</p><p class="resume-item__org">Savannah College of Art and Design</p></div>
+          <p class="resume-item__date">Jun 2022 - Jun 2026</p>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__name">Nabeel Mohammed</p>
+      <div class="footer__links">
+        <a href="#" data-link="linkedin">LinkedIn</a>
+        <a href="#" data-link="github">GitHub</a>
+        <a href="#" data-link="email">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+  <script src="js/easter-egg.js"></script>
+</body>
+</html>

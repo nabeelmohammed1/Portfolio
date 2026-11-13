@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SCADServe X Ronald McDonald House | Nabeel Mohammed</title>
+  <meta name="description" content="SCADServe X Ronald McDonald House: Nabeel Mohammed's work as technical and VR manager on an interactive playscape.">
+  <meta name="theme-color" content="#6f51e4">
+  <script>
+    /* Project pages always show the loading screen, until their videos and graph are ready */
+    document.documentElement.classList.add("is-loading");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="loader" aria-hidden="true">
+    <canvas class="loader__canvas"></canvas>
+    <div class="loader__logo"></div>
+    <div class="loader__text">
+      <p class="loader__name">Nabeel Mohammed</p>
+      <div class="loader__track"><div class="loader__bar"></div></div>
+      <p class="loader__count">0%</p>
+    </div>
+  </div>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__name">Nabeel</span>
+        <span class="brand__role">Gameplay Programmer</span>
+      </a>
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav__links nav__panel" aria-label="Main">
+        <a href="work.html" aria-current="page">Work</a>
+        <a href="about.html">About Me</a>
+        <a href="#" data-link="resume">Resume</a>
+        <a class="nav__contact nav__contact--menu" href="#" data-link="email">Contact Me</a>
+      </nav>
+      <a class="nav__contact nav__contact--bar" href="#" data-link="email">Contact Me</a>
+    </div>
+  </header>
+  <main class="project">
+    <header class="container project-intro">
+      <h1 class="page-title">SCADServe X Ronald McDonald House</h1>
+      <p class="project-intro__role">Technical &amp; VR Manager</p>
+      <dl class="project-facts">
+        <div><dt>Software:</dt><dd>Unreal Engine 5.5 - Perforce - Meta Horizon SDK</dd></div>
+        <div><dt>Team Size:</dt><dd>20</dd></div>
+      </dl>
+      <div class="project-buttons">
+        <a class="project-button" href="#" data-link="serveView">View Here</a>
+      </div>
+    </header>
+
+    <section class="container project-hero" aria-label="Project overview">
+      <img class="project-hero__image" src="assets/images/serve-hero.webp" alt="Ronald McDonald House and SCAD Serve logos" width="1600" height="897">
+      <p class="project-summary">A collaborative initiative focused on augmenting the existing five-story playscape at the Ronald McDonald House. Our cross-disciplinary team engineered technology-driven interventions and experiential concepts designed to revitalize the environment, creating interactive moments that seamlessly balance educational value with restorative play.</p>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">Conceptualization &amp; Ideation</h2>
+      <div class="project-columns project-columns--3">
+        <p><strong>Interactive Tech:</strong> Conceptualized and prototyped projection mapping, AR and VR mechanics to embed engaging digital interactivity directly into the physical playscape.</p>
+        <p><strong>Immersive Design:</strong> Leveraged XR Stage (LED Volume) technology to design and visualize restorative "meditation pods," providing immersive, low-stimulus environments for families.</p>
+        <p><strong>Tactile Enhancements:</strong> Bridged the gap between the digital and physical worlds by fabricating life-sized replicas of our custom 3D characters, anchoring the interactive elements within the tactile play space.</p>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--small">Technical Leadership &amp; Execution</h2>
+      <div class="challenge" style="--media-w: 635px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">1</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Asset &amp; Pipeline Management</h3>
+            <p>Managed the end-to-end 3D production pipeline. I directed the creation of environmental and character assets, ensuring a cohesive aesthetic across our distinct "Biomes of Georgia" and custom flora-themed creatures.</p>
+          </div>
+        </div>
+        <div class="challenge__media">
+          <video class="project-video" data-hover-video data-wait="loadedmetadata"
+            src="assets/videos/serve-flyaround.mp4" poster="assets/images/serve-flyaround-poster.webp"
+            width="1280" height="720" style="aspect-ratio: 635 / 357" muted loop playsinline preload="metadata"
+            aria-label="Fly-through of the forest biome built for the XR stage"></video>
+          <span class="video-hint" aria-hidden="true">Hover to play</span>
+        </div>
+      </div>
+      <div class="challenge challenge--flip" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">2</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Virtual Production (XR Stage)</h3>
+            <p>Coordinated and directed a professional Virtual Production shoot utilizing an LED Volume. We deployed a 3D digital twin of the RMH alongside our custom environments to deliver a high-fidelity, real-time proof of concept.</p>
+          </div>
+        </div>
+        <div class="challenge__media challenge__media--still">
+          <img src="assets/images/serve-xr-stage.webp" alt="The team standing in front of the LED volume showing the forest environment" width="1196" height="714" style="aspect-ratio: 598 / 357" decoding="async">
+        </div>
+      </div>
+      <div class="challenge" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">3</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">VR Twin Development</h3>
+            <p>Spearheaded the engineering of a 1-to-1 Virtual Reality replica of the physical playscape. This immersive simulation functioned as a critical stakeholder tool, allowing investors to physically navigate and validate our proposed enhancements prior to physical construction.</p>
+          </div>
+        </div>
+        <div class="challenge__media">
+          <video class="project-video" data-hover-video data-wait="loadedmetadata"
+            src="assets/videos/serve-vr.mp4" poster="assets/images/serve-vr-poster.webp"
+            width="1280" height="720" style="aspect-ratio: 598 / 357" muted loop playsinline preload="metadata"
+            aria-label="VR walkthrough of the virtual playscape"></video>
+          <span class="video-hint" aria-hidden="true">Hover to play</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--small project-heading--stack"><span>Reflections</span> Giving back to Society</h2>
+      <div class="reflection">
+        <p>This project carried profound personal and social significance. Tasked with enhancing the Ronald McDonald House Atlanta's new five-story playscape, our goal was to create a sanctuary for children undergoing intensive medical care and their families. By conceptualizing AR-driven interactive environments and restorative, low-stimulus pod devices, I learned how to leverage immersive technology to genuinely improve the emotional well-being of patients and parents. Using my technical skillset to create something that brings comfort to others is an accomplishment I am incredibly proud of, and it is a design philosophy I will carry forward in my career.</p>
+        <div class="reflection-cards">
+          <div class="reflection-card">
+            <h3>Stakeholder Relations</h3>
+            <p>Served as the technical liaison for RMHC leadership. I turned complex VR and XR systems into clear, value-driven concepts, ensuring our technical execution perfectly aligned with their goals.</p>
+          </div>
+          <div class="reflection-card">
+            <h3>Cross-Disciplinary Synergy</h3>
+            <p>Managed cross-functional deliverables across the art, design, and engineering disciplines. I maintained team momentum and strict production timelines despite rapid pivots in project scope and shifting XR technologies.</p>
+          </div>
+          <div class="reflection-card">
+            <h3>Helping Society</h3>
+            <p>Leveraged immersive technology to directly improve the emotional well-being of pediatric patients and their families. Building systems that drive positive social change is a core design philosophy I will carry forward in my career.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container project-section" aria-label="More projects">
+      <div class="work-grid">
+        <article class="card">
+          <a class="card__cover" href="provost.html" aria-label="SCADPRO X PROVOST: view project page"></a>
+          <div class="card__media"><img src="assets/images/scadpro-provost.webp" alt="Provost Studio and SCADpro logos" width="632" height="444" decoding="async"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Project Manager</span><h3 class="card__title">SCADPRO X PROVOST</h3></div>
+            <div class="card__row card__row--small"><span></span><span>2025</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <a class="card__cover" href="rod3nt.html" aria-label="Project Rod3nt: view project page"></a>
+          <div class="card__media"><img src="assets/images/project-rodent.webp" alt="Project Rod3nt title art" width="632" height="444" decoding="async"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay Programmer &amp; QA Engineer</span><h3 class="card__title">Project Rod3nt</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.6</span><span>2025-2026</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__name">Nabeel Mohammed</p>
+      <div class="footer__links">
+        <a href="#" data-link="linkedin">LinkedIn</a>
+        <a href="#" data-link="github">GitHub</a>
+        <a href="#" data-link="email">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>

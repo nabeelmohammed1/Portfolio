@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>All Work | Nabeel Mohammed</title>
+  <meta name="description" content="Games and projects by Nabeel Mohammed.">
+  <meta name="theme-color" content="#6f51e4">
+  <script>
+    /* Show the loading screen once per visit, before first paint */
+    try { if (!sessionStorage.getItem("loaderSeen")) document.documentElement.classList.add("is-loading"); } catch (err) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="loader" aria-hidden="true">
+    <canvas class="loader__canvas"></canvas>
+    <div class="loader__logo"></div>
+    <div class="loader__text">
+      <p class="loader__name">Nabeel Mohammed</p>
+      <div class="loader__track"><div class="loader__bar"></div></div>
+      <p class="loader__count">0%</p>
+    </div>
+  </div>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__name">Nabeel</span>
+        <span class="brand__role">Gameplay Programmer</span>
+      </a>
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav__links nav__panel" aria-label="Main">
+        <a href="work.html" aria-current="page">Work</a>
+        <a href="about.html">About Me</a>
+        <a href="#" data-link="resume">Resume</a>
+        <a class="nav__contact nav__contact--menu" href="#" data-link="email">Contact Me</a>
+      </nav>
+      <a class="nav__contact nav__contact--bar" href="#" data-link="email">Contact Me</a>
+    </div>
+  </header>
+  <main class="container work-page">
+    <h1 class="page-title">All Work</h1>
+    <div class="filters" role="group" aria-label="Filter projects">
+      <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button class="filter" type="button" data-filter="programming" aria-pressed="false">Programming</button>
+      <button class="filter" type="button" data-filter="design" aria-pressed="false">Design</button>
+      <button class="filter" type="button" data-filter="qa" aria-pressed="false">QA</button>
+    </div>
+    <div class="work-grid">
+        <article class="card" id="project-rodent" data-tags="programming qa">
+          <a class="card__cover" href="rod3nt.html" aria-label="Project Rod3nt: view project page"></a>
+          <div class="card__media"><img src="assets/images/project-rodent.webp" alt="Project Rod3nt title art" width="632" height="444"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay Programmer &amp; QA Engineer</span><h3 class="card__title">Project Rod3nt</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.6</span><span>2025-2026</span></div>
+          </div>
+        </article>
+        <article class="card" id="living-bubble" data-tags="programming qa">
+          <a class="card__cover" href="notlb.html" aria-label="Night of the Living Bubble: view project page"></a>
+          <div class="card__media"><img src="assets/images/living-bubble.webp" alt="Night of the Living Bubble title art" width="632" height="444"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay Programmer &amp; Technical Artist</span><h3 class="card__title">Night of the Living Bubble</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.5</span><span>2025-2026</span></div>
+          </div>
+        </article>
+        <article class="card" id="dogwater-studios" data-tags="programming">
+          <a class="card__cover" href="dog.html" aria-label="DogWater Studios: view project page"></a>
+          <div class="card__media"><img src="assets/images/dogwater-studios.webp" alt="DogWater Studios logo" width="632" height="444" loading="lazy"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Unreal Engine Developer</span><h3 class="card__title">DogWater Studios</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.7 | 5.8</span><span>2026</span></div>
+          </div>
+        </article>
+        <article class="card" id="everything-but-titans" data-tags="programming qa">
+          <a class="card__cover" href="ebt.html" aria-label="Everything But Titans: view project page"></a>
+          <div class="card__media"><img src="assets/images/everything-but-titans.webp" alt="Everything But Titans title art with three armoured titans" width="632" height="444" loading="lazy"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay &amp; Network Programmer</span><h3 class="card__title">Everything But Titans</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.6</span><span>2026</span></div>
+          </div>
+        </article>
+        <article class="card" id="cosmic-assault" data-tags="programming qa">
+          <a class="card__cover" href="cosmic.html" aria-label="Cosmic Assault: view project page"></a>
+          <div class="card__media"><img src="assets/images/cosmic-assault.webp" alt="Cosmic Assault title screen" width="632" height="444" loading="lazy"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay Programmer</span><h3 class="card__title">Cosmic Assault</h3></div>
+            <div class="card__row card__row--small"><span>Unity 2022 LTS</span><span>2023</span></div>
+          </div>
+        </article>
+        <article class="card" id="beach-scene" data-tags="design">
+          <a class="card__cover" href="trini.html" aria-label="Trinidadian Beach Scene: view project page"></a>
+          <div class="card__media"><img src="assets/images/beach-scene.webp" alt="Beach scene at sunset with a bucket in the sand" width="632" height="444" loading="lazy"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Level Designer &amp; 3D Artist</span><h3 class="card__title">Trinidadian Beach Scene</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.5 | Maya 2025</span><span>2024</span></div>
+          </div>
+        </article>
+        <article class="card" id="papa-bois" data-tags="design">
+          <a class="card__cover" href="cave.html" aria-label="Cave of Papa Bois: view project page"></a>
+          <div class="card__media"><img src="assets/images/papa-bois.webp" alt="Cave interior with a glowing carved stone" width="632" height="444" loading="lazy"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Level Designer &amp; 3D Artist</span><h3 class="card__title">Cave of Papa Bois</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.3 | Maya 2024</span><span>2023</span></div>
+          </div>
+        </article>
+        <article class="card" id="scadserve-rmh" data-tags="">
+          <a class="card__cover" href="serve.html" aria-label="SCADServe X Ronald McDonald House: view project page"></a>
+          <div class="card__media"><img src="assets/images/scadserve-rmh.webp" alt="Ronald McDonald House and SCAD Serve logos" width="632" height="444" loading="lazy"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Technical and VR Manager</span><h3 class="card__title">SCADServe X Ronald McDonald House</h3></div>
+            <div class="card__row card__row--small"><span></span><span>2026</span></div>
+          </div>
+        </article>
+        <article class="card" id="scadpro-provost" data-tags="">
+          <a class="card__cover" href="provost.html" aria-label="SCADPRO X PROVOST: view project page"></a>
+          <div class="card__media"><img src="assets/images/scadpro-provost.webp" alt="Provost Studio and SCADpro logos" width="632" height="444" loading="lazy"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Project Manager</span><h3 class="card__title">SCADPRO X PROVOST</h3></div>
+            <div class="card__row card__row--small"><span></span><span>2025</span></div>
+          </div>
+        </article>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__name">Nabeel Mohammed</p>
+      <div class="footer__links">
+        <a href="#" data-link="linkedin">LinkedIn</a>
+        <a href="#" data-link="github">GitHub</a>
+        <a href="#" data-link="email">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Easter Egg Prototype | Nabeel Mohammed</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .egg-test { min-height: 100vh; display: grid; place-content: center; gap: 24px; padding: var(--gutter); text-align: center; }
+    .egg-keys { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    .egg-keys kbd { min-width: 40px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-surface); font: 500 18px/24px var(--font-body); }
+    .egg-test p { color: var(--text-tertiary); }
+  </style>
+</head>
+<body>
+  <main class="egg-test">
+    <h1 class="page-title">Easter egg test</h1>
+    <div class="egg-keys" aria-label="Up, up, down, down, left, right, left, right, B, A">
+      <kbd>↑</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>←</kbd><kbd>→</kbd><kbd>B</kbd><kbd>A</kbd>
+    </div>
+    <p>Type the code anywhere on this page, or use the button.</p>
+    <div><button class="button" type="button" onclick="playEasterEgg()">Play it</button></div>
+  </main>
+  <script src="js/easter-egg.js"></script>
+</body>
+</html>

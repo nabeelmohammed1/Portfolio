@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Night of the Living Bubble | Nabeel Mohammed</title>
+  <meta name="description" content="Night of the Living Bubble: a Steam-released FPS where Nabeel Mohammed was gameplay programmer and technical artist.">
+  <meta name="theme-color" content="#6f51e4">
+  <script>
+    /* Project pages always show the loading screen, until their videos and graph are ready */
+    document.documentElement.classList.add("is-loading");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="loader" aria-hidden="true">
+    <canvas class="loader__canvas"></canvas>
+    <div class="loader__logo"></div>
+    <div class="loader__text">
+      <p class="loader__name">Nabeel Mohammed</p>
+      <div class="loader__track"><div class="loader__bar"></div></div>
+      <p class="loader__count">0%</p>
+    </div>
+  </div>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__name">Nabeel</span>
+        <span class="brand__role">Gameplay Programmer</span>
+      </a>
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav__links nav__panel" aria-label="Main">
+        <a href="work.html" aria-current="page">Work</a>
+        <a href="about.html">About Me</a>
+        <a href="#" data-link="resume">Resume</a>
+        <a class="nav__contact nav__contact--menu" href="#" data-link="email">Contact Me</a>
+      </nav>
+      <a class="nav__contact nav__contact--bar" href="#" data-link="email">Contact Me</a>
+    </div>
+  </header>
+  <main class="project">
+    <header class="container project-intro">
+      <h1 class="page-title">Night of the Living Bubble</h1>
+      <p class="project-intro__role">Gameplay Programmer &amp; Technical Artist</p>
+      <dl class="project-facts">
+        <div><dt>Software:</dt><dd>Unreal Engine - Github - Jira - Trello - Figma - Steamworks</dd></div>
+        <div><dt>Languages:</dt><dd>C++ - Unreal Blueprint</dd></div>
+        <div><dt>Team Size:</dt><dd>6</dd></div>
+      </dl>
+      <div class="project-buttons">
+        <a class="project-button" href="https://store.steampowered.com/app/3984090/Night_of_the_Living_Bubble/" target="_blank" rel="noopener noreferrer">Play Here</a>
+        <a class="project-button" href="#" data-link="notlbView">View Here</a>
+      </div>
+    </header>
+
+    <section class="container project-hero" aria-label="Project overview">
+      <video class="project-video project-video--main" data-autoplay-video data-wait="canplaythrough"
+        src="assets/videos/notlb-trailer.mp4" poster="assets/images/notlb-trailer-poster.webp"
+        width="1600" height="900" muted loop playsinline controls preload="auto"></video>
+      <p class="project-summary">What began as a 48-hour Global Game Jam prototype evolved into a polished, Steam released FPS. As Gameplay Programmer, I architected the game’s foundation, transitioning an experimental concept into a scalable production-ready framework featured at SIEGE Indie Fest and DreamHack Atlanta.</p>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">Technical Architecture</h2>
+      <div class="project-columns project-columns--4">
+        <p><strong>Fluid Multi-Input Systems:</strong> Engineered a responsive player controller featuring sprint/exhaustion mechanics and a diverse toolset (Grapple, Blower, Flamethrower). Developed a unified input wrapper to ensure seamless usage between Keyboard/Mouse and Controller.</p>
+        <p><strong>Dynamic Enemy Ecosystem:</strong> Programmed a diverse AI roster including Swarmers, Explosive Attackers, and Dynamic Bosses. Focused on balancing high-intensity combat with performance, utilizing optimized sensing and behavior logic to maintain steady framerates during large encounters.</p>
+        <p><strong>Architecture &amp; Systems Design:</strong> Developed robust game frameworks including persistent Save/Load systems, level-specific stat tracking, and modular spawner logic. Leveraged Blueprint Interfaces and Custom Structs to minimize class dependencies and ensure a decoupled, "clean" codebase.</p>
+        <p><strong>Optimization-First:</strong> Streamlined Blueprint overhead and AI logic to ensure scalability. By creating reusable, data-driven systems, I empowered the art and design teams to iterate on content rapidly without requiring constant technical oversight.</p>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--small">Technical Challenges &amp; Solutions</h2>
+      <div class="challenge" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">1</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Creating Dynamic and Unique Enemies</h3>
+            <p>As the project evolved from a standard horde-survival prototype, the AI required more sophisticated behaviors and engagement rules beyond basic pathfinding and player-chasing.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>Architected a modular AI ecosystem categorized into four distinct behavioral archetypes: Chasers, Launchers, Explosive, and Static. By establishing strict baseline metrics for movement speeds, sight distances, and engagement ranges, I ensured each enemy type was instantly readable from a distance. This framework powered varied combat loops, driving unique enemy logic such as player-launching Bubble Goats, flanking Plushie Squids, and Lightbirds that trigger explosive blinding effects.</p>
+          </div>
+        </div>
+        <div class="challenge__media">
+          <video class="project-video" data-hover-video data-wait="loadedmetadata"
+            src="assets/videos/notlb-enemies.mp4" poster="assets/images/notlb-enemies-poster.webp"
+            width="1280" height="720" style="aspect-ratio: 598 / 356" muted loop playsinline preload="metadata"
+            aria-label="Gameplay clip: enemies attacking in a toy store"></video>
+          <span class="video-hint" aria-hidden="true">Hover to play</span>
+        </div>
+      </div>
+      <div class="challenge challenge--flip" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">2</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Dynamic Upgrades</h3>
+            <p>To maintain engaging pacing and mechanical depth across levels, we needed to introduce gameplay variables that prevented combat loops from becoming predictable, even with a diverse enemy roster.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>Engineered a dynamic upgrade system utilizing everyday household items to expand the player's combat sandbox. I programmed distinct, physics-driven mechanics for each weapon, including a Hairdryer for localized crowd-control knockback, a Flamethrower for Area of Effect (AoE) burn damage, and a Measuring Tape that functions as a physics-based grappling hook to enhance vertical mobility and evasion.</p>
+          </div>
+        </div>
+        <div class="challenge__media">
+          <video class="project-video" data-hover-video data-wait="loadedmetadata"
+            src="assets/videos/notlb-upgrades.mp4" poster="assets/images/notlb-upgrades-poster.webp"
+            width="1280" height="720" style="aspect-ratio: 598 / 357" muted loop playsinline preload="metadata"
+            aria-label="Gameplay clip: using household-item upgrades on spawners"></video>
+          <span class="video-hint" aria-hidden="true">Hover to play</span>
+        </div>
+      </div>
+      <div class="challenge" style="--media-w: 598px">
+        <div class="challenge__text">
+          <span class="challenge__number" aria-hidden="true">3</span>
+          <div class="challenge__copy">
+            <h3 class="challenge__title">Challenge: Complex Enemy Bosses</h3>
+            <p>The game’s thematic progression through Bubble, Plushie, and Wood environments required bespoke, escalating boss encounters that challenged the player using mechanics tied directly to those material types.</p>
+            <h3 class="challenge__title">Solution</h3>
+            <p>Designed and engineered the complete logic flow for four distinct bosses (Bubble Dragon, Plushie Minotaur, Wooden Snake, and Amalgam). I built a scalable phase system where attack complexity and variety dynamically upgraded as health pools depleted. This culminated in the Amalgam encounter, requiring a complex state machine that cycled through the attack patterns of the three previous bosses before seamlessly combining them all in a high-intensity final phase.</p>
+          </div>
+        </div>
+        <div class="challenge__media">
+          <video class="project-video" data-hover-video data-wait="loadedmetadata"
+            src="assets/videos/notlb-bosses.mp4" poster="assets/images/notlb-bosses-poster.webp"
+            width="1280" height="720" style="aspect-ratio: 598 / 357" muted loop playsinline preload="metadata"
+            aria-label="Gameplay clip: fighting The Depot Basilisk boss"></video>
+          <span class="video-hint" aria-hidden="true">Hover to play</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">Blueprint UE Graph</h2>
+      <div class="embed" data-embed>
+        <iframe src="https://blueprintue.com/render/-qgo0qum/" title="Unreal Blueprint graph from Night of the Living Bubble" scrolling="no" allowfullscreen
+          data-wait="load" onload="this.dataset.loaded = '1'"></iframe>
+        <button class="embed__lock" type="button">Click to explore the graph</button>
+      </div>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--centre">QA Analysis</h2>
+      <div class="project-columns project-columns--3">
+        <p><strong>In-Person Events:</strong> Hosted frequent live playtesting sessions to rapidly gauge user feedback. These in-person events were essential for reading player reactions, analyzing their mechanical choices, and adjusting the game feel in real-time.</p>
+        <p><strong>Online Sessions:</strong> Conducted online testing to capture structured feedback from players in their natural environments, ensuring broad hardware compatibility and performance across different PC specs.</p>
+        <p><strong>Conventions:</strong> Exhibited the game at conventions to validate our core loop and gauge audience interest in a large scale environment. These events proved the game’s unique appeal, helping us network directly with players and successfully build a dedicated community.</p>
+      </div>
+      <div class="photo-collage">
+        <img class="photo-collage__main" src="assets/images/notlb-dreamhack.webp" alt="The team being interviewed on stage at DreamHack Atlanta 2025" width="2130" height="1100" decoding="async">
+        <img class="photo-collage__top" src="assets/images/notlb-convention-booth.webp" alt="Players trying the game at a convention booth" width="928" height="618" decoding="async">
+        <img class="photo-collage__bottom" src="assets/images/notlb-convention-play.webp" alt="A player in costume playing the game at a convention" width="928" height="482" decoding="async">
+      </div>
+      <p class="project-note"><strong>Feedback:</strong><br>Playtesting provided crucial insights but also presented a major design challenge, finding the perfect balance between intuitive guidance and player discovery. This experience taught us how to effectively filter raw user feedback, learning when to implement player suggestions to smooth out gameplay, and when to hold firm to preserve the intended difficulty and design vision.</p>
+    </section>
+
+    <section class="container project-section">
+      <h2 class="project-heading project-heading--small project-heading--stack"><span>Reflections</span> Gamejam to Full Release</h2>
+      <div class="reflection">
+        <p><strong>Night of the Living Bubble</strong> was my first commercial indie release and a major catalyst in my development as a Gameplay Programmer and Designer. It taught me that building the core mechanics is only half the battle, the true challenge lies in the final polish, refining game feel, optimizing logic, and iterating on existing features to craft a high-quality player experience.</p>
+        <p>While I spearheaded the engineering and design architecture, I wore many hats and contributed to nearly every facet of production:</p>
+        <div class="reflection-cards">
+          <div class="reflection-card">
+            <h3>Unique Design</h3>
+            <p>Designed clear visual language for all enemy types, allowing players to easily recognize threats and react to their specific behaviors from afar.</p>
+          </div>
+          <div class="reflection-card">
+            <h3>Team Lead</h3>
+            <p>Managed team dynamics and scope constraints by balancing creative input with realistic development scope, keeping the team motivated, engaged, and focused on the finish line.</p>
+          </div>
+          <div class="reflection-card">
+            <h3>Social Media Content</h3>
+            <p>Directed the game's social media presence by creating promotional content and actively engaging with our player base to maximize visibility and interaction prior to launch.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container project-section" aria-label="More projects">
+      <div class="work-grid">
+        <article class="card">
+          <a class="card__cover" href="dog.html" aria-label="DogWater Studios: view project page"></a>
+          <div class="card__media"><img src="assets/images/dogwater-studios.webp" alt="DogWater Studios logo" width="632" height="444" decoding="async"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Unreal Engine Developer</span><h3 class="card__title">DogWater Studios</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.7 | 5.8</span><span>2026</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <a class="card__cover" href="ebt.html" aria-label="Everything But Titans: view project page"></a>
+          <div class="card__media"><img src="assets/images/everything-but-titans.webp" alt="Everything But Titans title art with three armoured titans" width="632" height="444" decoding="async"></div>
+          <div class="card__meta">
+            <div class="card__row"><span>Gameplay &amp; Network Programmer</span><h3 class="card__title">Everything But Titans</h3></div>
+            <div class="card__row card__row--small"><span>Unreal Engine 5.6</span><span>2026</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__name">Nabeel Mohammed</p>
+      <div class="footer__links">
+        <a href="#" data-link="linkedin">LinkedIn</a>
+        <a href="#" data-link="github">GitHub</a>
+        <a href="#" data-link="email">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>
