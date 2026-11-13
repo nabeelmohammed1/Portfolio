@@ -205,5 +205,37 @@ const EGG_SPRITE = [
     }
   });
 
+  /* Touch screens: swipe up, up, down, down, left, right, left, right, then tap twice */
+  const SWIPE_MIN = 40; // px a finger must travel to count as a swipe
+  const TAP_MAX = 12; // px a finger may move and still count as a tap
+  let touchStart = null;
+  addEventListener("touchstart", (event) => {
+    const t = event.changedTouches[0];
+    touchStart = { x: t.clientX, y: t.clientY };
+  }, { passive: true });
+  addEventListener("touchend", (event) => {
+    if (!touchStart) return;
+    const t = event.changedTouches[0];
+    const dx = t.clientX - touchStart.x;
+    const dy = t.clientY - touchStart.y;
+    touchStart = null;
+    let move = null;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) >= SWIPE_MIN) {
+      // The finger moving up is "up", like pressing the up arrow.
+      move = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "arrowright" : "arrowleft") : (dy > 0 ? "arrowdown" : "arrowup");
+    } else if (Math.abs(dx) <= TAP_MAX && Math.abs(dy) <= TAP_MAX) {
+      // Taps stand in for B then A, but only once all eight swipes are in.
+      const swipes = EGG_CODE.slice(0, 8).join();
+      const done = typed.slice(-8).join() === swipes ? "b" : typed.slice(-9, -1).join() === swipes && typed[typed.length - 1] === "b" ? "a" : null;
+      move = done;
+    }
+    if (!move) return;
+    typed = [...typed, move].slice(-EGG_CODE.length);
+    if (typed.join() === EGG_CODE.join()) {
+      typed = [];
+      play();
+    }
+  }, { passive: true });
+
   window.playEasterEgg = play; // handy for testing from the console
 })();

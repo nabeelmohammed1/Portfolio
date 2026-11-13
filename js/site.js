@@ -89,6 +89,17 @@ const ABOUT_LINKS = {
   "savannah-college-of-art-and-design":null
 };
 
+/* ---------------------------------------------------------------
+   Home page "More of what I've been up to": the text shown over each photo
+   on hover (tap on phones). Leave text empty to show only the title.
+   --------------------------------------------------------------- */
+const PHOTO_INFO = {
+  "scad-group": { title: "GDC Booth", text: "Showcased Project Rod3nt at GDC under the SCAD Booth" },
+  "graduation": { title: "Graduation", text: "Graduated SCAD Atlanta with a BFA in Game Development" },
+  "team-photo": { title: "Scad Out to Launch", text: "Represented the Game Department at our Out to Laucnh event which highlights top performing seniors from each major" },
+  "ai-summit": { title: "AI Summit", text: "Part of the student panel during SCAD AI Summit 2026, this panel was attended by numerous leaders and executives from major companies" },
+};
+
 /* Pictures shown by the cursor trail on the home page */
 const TRAIL_IMAGES = [
   "project-rodent", "living-bubble", "scad-group", "cosmic-assault",
@@ -589,7 +600,95 @@ function setUpProjectMedia() {
   };
 }
 
+/* Photos with data-info: a dark overlay builds up out of purple pixels, then the
+   text appears. Runs in reverse on the way out. */
+function setUpPhotoInfo() {
+  const COLUMNS = 16;
+  const ROWS = 11;
+  const DURATION_MS = 320;
+  const PURPLE = "#6f51e4";
+  const SHADE = "rgba(16, 16, 16, 0.82)";
+
+  document.querySelectorAll("[data-info]").forEach((box) => {
+    const info = PHOTO_INFO[box.dataset.info];
+    if (!info) return;
+    box.classList.add("photo-info");
+    box.tabIndex = 0;
+    const canvas = document.createElement("canvas");
+    canvas.className = "photo-info__pixels";
+    canvas.setAttribute("aria-hidden", "true");
+    const copy = document.createElement("div");
+    copy.className = "photo-info__copy";
+    copy.innerHTML = `<h3>${info.title}</h3>${info.text ? `<p>${info.text}</p>` : ""}`;
+    box.append(canvas, copy);
+    const context = canvas.getContext("2d");
+    const order = shuffled(COLUMNS * ROWS).map((n) => n / (COLUMNS * ROWS));
+
+    let progress = 0;
+    let target = 0;
+    let previous = 0;
+    let running = false;
+    const draw = () => {
+      const width = canvas.width;
+      const height = canvas.height;
+      context.clearRect(0, 0, width, height);
+      for (let i = 0; i < order.length; i += 1) {
+        // Each pixel arrives at its own moment, flashes purple, then settles dark.
+        const age = progress * 1.25 - order[i];
+        if (age <= 0) continue;
+        const column = i % COLUMNS;
+        const row = Math.floor(i / COLUMNS);
+        const x = Math.round((column * width) / COLUMNS);
+        const y = Math.round((row * height) / ROWS);
+        context.fillStyle = age < 0.18 ? PURPLE : SHADE;
+        context.fillRect(x, y, Math.round(((column + 1) * width) / COLUMNS) - x, Math.round(((row + 1) * height) / ROWS) - y);
+      }
+    };
+    const step = (now) => {
+      const delta = (now - previous) / DURATION_MS;
+      previous = now;
+      progress = target > progress ? Math.min(target, progress + delta) : Math.max(target, progress - delta);
+      draw();
+      box.classList.toggle("is-open", progress >= 0.85);
+      if (progress !== target) requestAnimationFrame(step);
+      else running = false;
+    };
+    const show = (open) => {
+      target = open ? 1 : 0;
+      if (reducedMotion) {
+        progress = target;
+        canvas.width = 1; canvas.height = 1;
+        box.classList.toggle("is-open", open);
+        box.classList.toggle("is-plain", open);
+        return;
+      }
+      if (open && progress === 0) {
+        // Match the canvas to the photo's size on screen each time it opens.
+        canvas.width = box.clientWidth;
+        canvas.height = box.clientHeight;
+      }
+      if (!running) {
+        running = true;
+        previous = performance.now();
+        requestAnimationFrame(step);
+      }
+    };
+
+    const canHover = matchMedia("(hover: hover)");
+    box.addEventListener("mouseenter", () => { if (canHover.matches) show(true); });
+    box.addEventListener("mouseleave", () => { if (canHover.matches) show(false); });
+    box.addEventListener("focus", () => show(true));
+    box.addEventListener("blur", () => show(false));
+    box.addEventListener("click", () => { if (!canHover.matches) show(target === 0); });
+  });
+}
+
 /* Resolves once a video or iframe marked with data-wait is ready */
+/* Phones and tablets don't download video until it plays, so waiting for it there
+   would leave the loading screen stuck. Their posters are still waited for. */
+const preloadsVideo = matchMedia("(hover: hover) and (pointer: fine)").matches;
+const VIDEO_WAIT_MS = 8000; // never hold the loading screen longer than this for one video
+
 function waitFor(element) {
   return new Promise((resolve) => {
     const event = element.dataset.wait;
@@ -598,6 +697,8 @@ function waitFor(element) {
       element.addEventListener("load", resolve, { once: true });
       return;
     }
+    if (!preloadsVideo) return resolve();
+    setTimeout(resolve, VIDEO_WAIT_MS);
     const needed = { loadedmetadata: 1, loadeddata: 2, canplay: 3, canplaythrough: 4 }[event] || 1;
     if (element.readyState >= needed) return resolve();
     element.addEventListener(event, resolve, { once: true });
@@ -869,6 +970,7 @@ setUpFilters();
 setUpImageTrail();
 const startHero = setUpHero();
 const startProjectMedia = setUpProjectMedia();
+setUpPhotoInfo();
 runLoader((delay) => {
   startHero(delay);
   startProjectMedia();

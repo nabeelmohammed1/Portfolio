@@ -197,6 +197,21 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .more .section-title { color: #fff; text-align: center; }
 .more .work-grid { width: 100%; }
 
+/* Info overlay on the home page photos (built by site.js) */
+.photo-info { position: relative; cursor: pointer; }
+.photo-info:focus-visible { outline-offset: 4px; }
+.photo-info__pixels { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; image-rendering: pixelated; }
+.photo-info__copy {
+  position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  gap: 10px; padding: 32px; text-align: center; color: #fff;
+  opacity: 0; transition: opacity .2s steps(3); pointer-events: none;
+}
+.photo-info__copy h3 { font: 700 clamp(20px, 2.4vw, 30px) / 1.2 var(--font-heading); text-transform: uppercase; }
+.photo-info__copy p { max-width: 460px; }
+.photo-info.is-open .photo-info__copy { opacity: 1; }
+.photo-info.is-plain { box-shadow: inset 0 0 0 999px rgba(16, 16, 16, .82); }
+@media (hover: none) { .photo-info::after { content: "Tap for info"; position: absolute; left: 12px; bottom: 12px; padding: 4px 10px; background: rgba(16, 16, 16, .75); border-radius: 4px; font-size: 13px; line-height: 20px; } .photo-info.is-open::after { display: none; } }
+
 .button {
   display: inline-flex;
   align-items: center;
