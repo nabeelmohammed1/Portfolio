@@ -401,8 +401,14 @@ function setUpImageTrail() {
 
 /* Drifting pixels behind the whole home page. They scatter from the cursor and
    run at a low frame rate on purpose, for a retro feel. */
-function setUpPixelField(hero) {
-  const canvas = document.querySelector(".page-pixels");
+function setUpPixelField(hero, density = 1) {
+  let canvas = document.querySelector(".page-pixels");
+  if (!canvas) {
+    canvas = document.createElement("canvas");
+    canvas.className = "page-pixels";
+    canvas.setAttribute("aria-hidden", "true");
+    document.body.prepend(canvas);
+  }
   const context = canvas.getContext("2d");
   const FRAME_MS = 1000 / 18;
   const CURSOR_RADIUS = 170;
@@ -423,7 +429,7 @@ function setUpPixelField(hero) {
     height = newHeight;
     canvas.width = width * scale;
     canvas.height = height * scale;
-    const count = Math.min(110, Math.round((width * height) / 11000));
+    const count = Math.min(110, Math.round(((width * height) / 11000) * density));
     pixels = Array.from({ length: count }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
@@ -442,8 +448,9 @@ function setUpPixelField(hero) {
     const seconds = Math.min((now - previous) / 1000, 0.2);
     previous = now;
     const wrapHeight = height + 20;
-    const heroBox = hero.getBoundingClientRect();
-    const heroMiddle = heroBox.top + heroBox.height / 2;
+    // Fainter behind the home page name; other pages have no hero, so no faint zone.
+    const heroBox = hero ? hero.getBoundingClientRect() : null;
+    const heroMiddle = heroBox ? heroBox.top + heroBox.height / 2 : 0;
     context.setTransform(scale, 0, 0, scale, 0, 0);
     context.clearRect(0, 0, width, height);
     pixels.forEach((pixel) => {
@@ -467,7 +474,7 @@ function setUpPixelField(hero) {
       pixel.pushY *= 0.93;
       // Stepped twinkle, and fainter behind the name so it stays easy to read.
       const twinkle = Math.round((Math.sin(now / 900 + pixel.phase) * 0.5 + 0.5) * 3) / 3;
-      const fromName = Math.hypot((pixel.x - width / 2) / (width / 2), (y - heroMiddle) / (heroBox.height / 2));
+      const fromName = heroBox ? Math.hypot((pixel.x - width / 2) / (width / 2), (y - heroMiddle) / (heroBox.height / 2)) : 1;
       context.globalAlpha = Math.min(1, (0.12 + twinkle * 0.5) * Math.min(1, 0.35 + fromName) + glow);
       context.fillStyle = pixel.colour;
       // Whole-number positions keep every square crisp.
@@ -681,6 +688,67 @@ function setUpPhotoInfo() {
     box.addEventListener("blur", () => show(false));
     box.addEventListener("click", () => { if (!canHover.matches) show(target === 0); });
   });
+}
+
+/* ---------------------------------------------------------------
+   Motion for every page except the home hero (which has its own):
+   - page titles step in letter by letter; section headings draw a pixel underline
+   - a lighter version of the drifting pixels sits behind the page
+   Nothing runs for visitors who ask their device for reduced motion.
+   --------------------------------------------------------------- */
+const HEADINGS = ".section-title, .project-heading";
+
+function splitTitle(title) {
+  title.setAttribute("aria-label", title.textContent);
+  const letters = [];
+  title.replaceChildren(...title.textContent.trim().split(/\s+/).flatMap((word, i) => {
+    const box = document.createElement("span");
+    box.className = "title-word";
+    box.setAttribute("aria-hidden", "true");
+    [...word].forEach((character) => {
+      const letter = document.createElement("span");
+      letter.className = "title-letter";
+      letter.textContent = character;
+      box.append(letter);
+      letters.push(letter);
+    });
+    return i ? [" ", box] : [box];
+  }));
+  return letters;
+}
+
+function setUpMotion() {
+  if (reducedMotion) return () => {};
+  const onHome = Boolean(document.querySelector("[data-trail]"));
+  if (!onHome) setUpPixelField(null, 0.5);
+
+  const headings = [...document.querySelectorAll(HEADINGS)];
+  headings.forEach((el) => el.classList.add("reveal-heading"));
+  const titles = onHome ? [] : [...document.querySelectorAll("main .page-title")].map(splitTitle);
+
+  return () => {
+    // Page titles step in first.
+    titles.forEach((letters) => letters.forEach((letter, i) => {
+      letter.animate(
+        [{ opacity: 0, transform: "translateY(.35em)", color: "#6f51e4" }, { opacity: 1, transform: "none" }],
+        { duration: 380, delay: 150 + i * 28, easing: "steps(5)", fill: "backwards" }
+      );
+    }));
+
+    // Section headings draw their underline once they scroll into view.
+    const observer = new IntersectionObserver((entries) => {
+      const arriving = entries.filter((entry) => entry.isIntersecting);
+      arriving.forEach((entry, i) => {
+        const el = entry.target;
+        if (!el.style.getPropertyValue("--reveal-delay")) {
+          el.style.setProperty("--reveal-delay", `${Math.min(i, 6) * 80}ms`);
+        }
+        el.classList.add("is-in");
+        observer.unobserve(el);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+    headings.forEach((el) => observer.observe(el));
+  };
 }
 
 /* Resolves once a video or iframe marked with data-wait is ready */
@@ -971,7 +1039,9 @@ setUpImageTrail();
 const startHero = setUpHero();
 const startProjectMedia = setUpProjectMedia();
 setUpPhotoInfo();
+const startMotion = setUpMotion();
 runLoader((delay) => {
   startHero(delay);
   startProjectMedia();
+  startMotion();
 });

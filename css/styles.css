@@ -435,6 +435,35 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .reflection-card h3 { font-size: 19px; }
 }
 
+/* Motion (classes added by site.js, so nothing is hidden if scripts don't run) */
+/* Section headings draw a short pixel underline */
+.reveal-heading { position: relative; }
+.reveal-heading::after {
+  content: ""; display: block; width: 72px; height: 6px; margin-top: 14px;
+  background: repeating-linear-gradient(90deg, var(--main) 0 6px, transparent 6px 9px);
+  transform: scaleX(0); transform-origin: left;
+}
+.project-heading--centre.reveal-heading::after, .more .reveal-heading::after { margin-inline: auto; transform-origin: center; }
+.reveal-heading.is-in::after { transform: scaleX(1); transition: transform .45s steps(8) .15s; }
+
+.title-word { display: inline-block; white-space: nowrap; }
+.title-letter { display: inline-block; }
+
+/* Small hover touches, in steps to match the pixel style */
+@media (hover: hover) {
+  .resume-item { transition: padding-left .2s steps(3); position: relative; }
+  .resume-item::before {
+    content: ""; position: absolute; left: 0; top: 6px; width: 6px; height: 22px;
+    background: var(--main); transform: scaleY(0); transition: transform .2s steps(3);
+  }
+  .resume-item:hover { padding-left: 18px; }
+  .resume-item:hover::before { transform: scaleY(1); }
+  .reflection-card { transition: transform .2s steps(3), box-shadow .2s steps(3); }
+  .reflection-card:hover { transform: translateY(-6px); box-shadow: 0 0 0 1px var(--main-hover), 6px 6px 0 rgba(111, 81, 228, .45); }
+  .challenge__number { transition: color .2s steps(2); }
+  .challenge:hover .challenge__number { color: var(--main-hover); }
+}
+
 /* Footer */
 .footer { background: var(--bg-surface); padding-block: 51px; }
 .footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
