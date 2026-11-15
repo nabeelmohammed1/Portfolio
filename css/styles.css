@@ -464,6 +464,110 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .challenge:hover .challenge__number { color: var(--main-hover); }
 }
 
+/* Repo page: an Unreal Engine Blueprint graph you can move around in */
+/* The graph fills the whole screen under the nav bar */
+.experimental-page { padding: 0; }
+.bp-graph {
+  position: relative; height: calc(100vh - var(--nav-height)); height: calc(100svh - var(--nav-height)); overflow: hidden;
+  border-bottom: 1px solid #0b0b0b;
+  background-color: #262626;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, .45) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, .45) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
+  background-size: 128px 128px, 128px 128px, 16px 16px, 16px 16px;
+  box-shadow: inset 0 0 120px rgba(0, 0, 0, .55);
+  cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none;
+}
+.bp-graph.is-panning { cursor: grabbing; }
+/* The faint corner mark, like Unreal's "BLUEPRINT" label */
+.bp-graph::after {
+  content: "REPO"; position: absolute; right: 28px; bottom: 18px; z-index: 3;
+  font: 700 clamp(30px, 5vw, 64px) / 1 var(--font-heading); letter-spacing: .04em; color: rgba(255, 255, 255, .07);
+  pointer-events: none;
+}
+/* Page title floats over the top-left of the graph */
+.bp-title { position: absolute; top: 28px; left: var(--gutter); z-index: 4; pointer-events: none; text-shadow: 0 2px 14px rgba(0, 0, 0, .7); transition: opacity .25s steps(4); }
+.bp-title.is-covered { opacity: .12; } /* fades out of the way when a node passes under it */
+.bp-world { position: absolute; left: 0; top: 0; width: 1px; height: 1px; transform-origin: 0 0; }
+.bp-wires { position: absolute; left: 0; top: 0; width: 1px; height: 1px; overflow: visible; pointer-events: none; }
+.bp-wire { fill: none; stroke: #e6e6e6; stroke-width: 2.5; vector-effect: non-scaling-stroke; } /* wires stay the same thickness at any zoom */
+/* The orange pulse that runs along wires while a Blueprint is executing */
+.bp-wire__flow { fill: none; stroke: #ffb547; stroke-width: 3; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-dasharray: 4 26; animation: bp-flow 1.4s linear infinite; }
+@keyframes bp-flow { to { stroke-dashoffset: -30; } }
+
+.bp-comment {
+  position: absolute; width: 560px; cursor: move;
+  background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); border-radius: 6px;
+}
+.bp-comment__title { padding: 8px 14px; background: rgba(255, 255, 255, .14); border-radius: 6px 6px 0 0; font: 700 18px/1.3 var(--font-heading); color: #fff; }
+.bp-comment__text { padding: 12px 14px 14px; font-size: 15px; line-height: 22px; color: var(--text-primary); }
+
+.bp-node {
+  position: absolute; cursor: move;
+  background: rgba(14, 14, 14, .94); border: 1px solid #050505; border-radius: 10px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .55);
+}
+.bp-node:hover, .bp-node:focus-visible { outline: none; box-shadow: 0 0 0 2px #f2a93b, 0 8px 22px rgba(0, 0, 0, .55); } /* Unreal's selection outline */
+.bp-start { width: 220px; }
+.bp-node__head {
+  position: relative; display: flex; align-items: center; gap: 10px; padding: 10px 34px;
+  border-radius: 9px 9px 0 0; background: var(--bp-head);
+}
+.bp-start .bp-node__head { border-radius: 9px; }
+.bp-node--event { --bp-head: linear-gradient(90deg, #a52222, #6e1a1a 60%, rgba(110, 26, 26, .25)); }
+.bp-node--function { --bp-head: linear-gradient(90deg, #3a6fae, #234a75 60%, rgba(35, 74, 117, .25)); }
+.bp-node--pure { --bp-head: linear-gradient(90deg, #4d8c2c, #2f5a1c 60%, rgba(47, 90, 28, .25)); }
+.bp-node--macro { --bp-head: linear-gradient(90deg, #6f6f6f, #444 60%, rgba(68, 68, 68, .25)); }
+.bp-node__icon { font-size: 15px; color: rgba(255, 255, 255, .85); }
+.bp-node__titles { min-width: 0; }
+.bp-node__title { font: 700 17px/1.25 var(--font-heading); color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, .6); }
+.bp-node__category { font-size: 12px; line-height: 16px; color: rgba(255, 255, 255, .7); }
+
+/* Pins: white arrow-shaped exec pins on the header, coloured circles for data */
+.bp-pin { display: inline-block; flex: none; }
+.bp-pin--exec { position: absolute; top: 50%; width: 14px; height: 14px; margin-top: -7px; background: #fff; clip-path: polygon(0 0, 55% 0, 100% 50%, 55% 100%, 0 100%); }
+.bp-pin--in { left: 12px; }
+.bp-pin--out { right: 12px; }
+.bp-pin--data { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--pin); background: color-mix(in srgb, var(--pin) 35%, transparent); }
+
+.bp-node__body { padding: 14px; display: grid; gap: 14px; }
+.bp-node__media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 6px; background: #0b0b0b; }
+.bp-node__media img, .bp-node__media video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+.bp-node__media--empty { display: grid; place-items: center; border: 1px dashed rgba(255, 255, 255, .18); }
+.bp-node__media--empty span { font-size: 14px; color: var(--text-tertiary); }
+.bp-node__media .video-hint { position: absolute; left: 10px; bottom: 10px; padding: 3px 9px; background: rgba(16, 16, 16, .75); border-radius: 4px; font-size: 12px; line-height: 18px; transition: opacity .2s; pointer-events: none; }
+.bp-node__media.is-playing .video-hint { opacity: 0; }
+.bp-node__media--instagram { aspect-ratio: auto; height: 560px; background: #fff; }
+.bp-node__media--instagram iframe { display: block; width: 100%; height: 100%; border: 0; }
+.bp-node__link {
+  justify-self: start; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 6px 16px;
+  border: 1px solid var(--border); border-radius: 8px; font-size: 15px; transition: background .2s, border-color .2s;
+}
+.bp-node__link:hover { background: var(--main); border-color: var(--main); }
+.bp-node__pins { display: grid; gap: 6px; }
+.bp-node__pins li { display: flex; align-items: center; gap: 10px; font-size: 15px; line-height: 22px; }
+.bp-node__label { color: var(--text-tertiary); }
+.bp-node__value { margin-left: auto; color: #fff; text-align: right; }
+.bp-node__text { font-size: 15px; line-height: 23px; }
+
+.bp-controls { position: absolute; top: 14px; right: 14px; z-index: 4; display: flex; gap: 8px; }
+.bp-controls button {
+  min-width: 40px; height: 40px; padding: 0 12px; border-radius: 8px;
+  background: rgba(14, 14, 14, .9); border: 1px solid var(--border); color: #fff; font-size: 16px; line-height: 1;
+  transition: border-color .2s, background .2s;
+}
+.bp-controls button:hover { border-color: var(--main-hover); background: rgba(111, 81, 228, .2); }
+.bp-hint { position: absolute; left: 16px; bottom: 14px; z-index: 4; padding: 5px 10px; border-radius: 6px; background: rgba(14, 14, 14, .8); font-size: 13px; line-height: 18px; color: var(--text-tertiary); pointer-events: none; }
+.bp-hint--touch { display: none; }
+@media (hover: none) { .bp-hint--mouse { display: none; } .bp-hint--touch { display: inline; } }
+
+@media (max-width: 767px) {
+  .bp-title { top: 18px; left: 18px; }
+  .bp-graph::after { bottom: 52px; }
+}
+
 /* Footer */
 .footer { background: var(--bg-surface); padding-block: 51px; }
 .footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }

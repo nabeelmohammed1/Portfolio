@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repo | Nabeel Mohammed</title>
+  <meta name="description" content="Repo: side projects and experiments by Nabeel Mohammed, laid out like an Unreal Blueprint graph.">
+  <!-- og: link previews (Discord, iMessage, LinkedIn, X...) -->
+  <link rel="canonical" href="https://nabeelmohammed1.github.io/Portfolio/repo.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nabeel Mohammed">
+  <meta property="og:title" content="Repo | Nabeel Mohammed">
+  <meta property="og:description" content="Repo: side projects and experiments by Nabeel Mohammed, laid out like an Unreal Blueprint graph.">
+  <meta property="og:url" content="https://nabeelmohammed1.github.io/Portfolio/repo.html">
+  <meta property="og:image" content="https://nabeelmohammed1.github.io/Portfolio/assets/images/og/default.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Nabeel Mohammed logo on purple: Gameplay Programmer | Designer">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- /og -->
+  <meta name="theme-color" content="#6f51e4">
+  <script>
+    /* Show the loading screen once per visit, before first paint */
+    try { if (!sessionStorage.getItem("loaderSeen")) document.documentElement.classList.add("is-loading"); } catch (err) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="loader" aria-hidden="true">
+    <canvas class="loader__canvas"></canvas>
+    <div class="loader__logo"></div>
+    <div class="loader__text">
+      <p class="loader__name">Nabeel Mohammed</p>
+      <div class="loader__track"><div class="loader__bar"></div></div>
+      <p class="loader__count">0%</p>
+    </div>
+  </div>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__name">Nabeel</span>
+        <span class="brand__role">Gameplay Programmer</span>
+      </a>
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav__links nav__panel" aria-label="Main">
+        <a href="work.html">Work</a>
+        <a href="repo.html" aria-current="page">Repo</a>
+        <a href="about.html">About Me</a>
+        <a href="#" data-link="resume">Resume</a>
+        <a class="nav__contact nav__contact--menu" href="#" data-link="email">Contact Me</a>
+      </nav>
+      <a class="nav__contact nav__contact--bar" href="#" data-link="email">Contact Me</a>
+    </div>
+  </header>
+  <main class="experimental-page">
+    <section class="bp-graph" data-blueprint aria-label="Repo graph of side projects">
+      <h1 class="page-title bp-title">Repo</h1>
+      <div class="bp-world">
+        <svg class="bp-wires" aria-hidden="true"></svg>
+        <div class="bp-comment">
+          <p class="bp-comment__title">Side Projects &amp; Experiments</p>
+          <p class="bp-comment__text">Work from outside my main focus: art, animation and other experiments. Hover a node to play its video.</p>
+        </div>
+        <div class="bp-node bp-node--event bp-start" data-node="Event BeginPlay">
+          <header class="bp-node__head">
+            <span class="bp-node__icon" aria-hidden="true">&#9670;</span>
+            <div class="bp-node__titles"><p class="bp-node__title">Event BeginPlay</p></div>
+            <span class="bp-pin bp-pin--exec bp-pin--out" aria-hidden="true"></span>
+          </header>
+        </div>
+      </div>
+      <div class="bp-controls">
+        <button type="button" data-zoom-out aria-label="Zoom out">&minus;</button>
+        <button type="button" data-zoom-in aria-label="Zoom in">+</button>
+        <button type="button" data-reset>Reset</button>
+      </div>
+      <p class="bp-hint" aria-hidden="true"><span class="bp-hint--mouse">Drag to move around &middot; Drag nodes to rearrange &middot; Ctrl + scroll to zoom</span><span class="bp-hint--touch">Drag to move around &middot; Pinch to zoom</span></p>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__name">Nabeel Mohammed</p>
+      <div class="footer__links">
+        <a href="#" data-link="linkedin">LinkedIn</a>
+        <a href="#" data-link="github">GitHub</a>
+        <a href="#" data-link="email">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+  <script src="js/repo.js"></script>
+</body>
+</html>
