@@ -93,7 +93,7 @@ const KIND_ICONS = { event: "◆", function: "ƒ", pure: "●", macro: "▣" };
     if (!media) return `<div class="bp-node__media bp-node__media--empty"><span>Image or video</span></div>`;
     if (media.type === "instagram") {
       // Instagram's own profile card: header plus a grid of recent posts, kept up to date by Instagram.
-      return `<div class="bp-node__media bp-node__media--instagram"><iframe src="https://www.instagram.com/${escape(media.user)}/embed/"
+      return `<div class="bp-node__media bp-node__media--instagram"><iframe scrolling="no" src="https://www.instagram.com/${escape(media.user)}/embed/"
         title="${escape(title)} on Instagram" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
     }
     if (media.type === "video") {
@@ -319,12 +319,37 @@ const KIND_ICONS = { event: "◆", function: "ƒ", pure: "●", macro: "▣" };
   graph.addEventListener("pointerup", release);
   graph.addEventListener("pointercancel", release);
 
+  /* Scrolling inside the graph:
+     - trackpad pinch (sent as Ctrl + scroll) or Ctrl/Cmd + mouse wheel: zoom
+     - two-finger trackpad scroll: move around, in any direction
+     - a plain mouse wheel: scrolls the page as normal */
+  const isMouseWheel = (event) =>
+    event.deltaMode === 1 ||
+    (event.wheelDeltaY !== undefined && event.wheelDeltaY !== 0 && event.deltaX === 0 && Math.abs(event.wheelDeltaY) % 120 === 0);
   graph.addEventListener("wheel", (event) => {
-    // Plain scrolling moves the page; Ctrl/Cmd + scroll (and trackpad pinch) zooms the graph.
-    if (!event.ctrlKey && !event.metaKey) return;
+    if (event.ctrlKey || event.metaKey) {
+      event.preventDefault();
+      // Pinches arrive as small steps, mouse wheels as big ones: scale each to feel the same.
+      const speed = Math.abs(event.deltaY) < 50 ? 0.01 : 0.0015;
+      zoomAt(Math.exp(-event.deltaY * speed), event.clientX, event.clientY);
+      return;
+    }
+    if (isMouseWheel(event)) return;
     event.preventDefault();
-    zoomAt(Math.exp(-event.deltaY * 0.0015), event.clientX, event.clientY);
+    view.x -= event.deltaX;
+    view.y -= event.deltaY;
+    applyView();
   }, { passive: false });
+
+  /* Safari on Mac reports trackpad pinches as gesture events instead */
+  let gestureScale = 1;
+  graph.addEventListener("gesturestart", (event) => { event.preventDefault(); gestureScale = 1; });
+  graph.addEventListener("gesturechange", (event) => {
+    event.preventDefault();
+    zoomAt(event.scale / gestureScale, event.clientX, event.clientY);
+    gestureScale = event.scale;
+  });
+  graph.addEventListener("gestureend", (event) => event.preventDefault());
 
   /* ---------- controls ---------- */
   graph.querySelector("[data-zoom-in]").addEventListener("click", () => {
@@ -361,6 +386,23 @@ const KIND_ICONS = { event: "◆", function: "ƒ", pure: "●", macro: "▣" };
     box.addEventListener("mouseleave", () => { if (canHover.matches) video.pause(); });
     video.addEventListener("play", () => box.classList.add("is-playing"));
     video.addEventListener("pause", () => box.classList.remove("is-playing"));
+  });
+
+  /* Instagram's card tells the page how tall it is; size the frame to match exactly. */
+  addEventListener("message", (event) => {
+    let host = "";
+    try { host = new URL(event.origin).hostname; } catch (error) { return; }
+    if (!/(^|\.)instagram\.com$/.test(host)) return;
+    let data = event.data;
+    try { if (typeof data === "string") data = JSON.parse(data); } catch (error) { return; }
+    const height = data && data.details && data.details.height;
+    if (!height) return;
+    world.querySelectorAll(".bp-node__media--instagram iframe").forEach((frame) => {
+      if (frame.contentWindow === event.source) {
+        frame.style.height = `${Math.round(height)}px`;
+        drawWires();
+      }
+    });
   });
 
   /* ---------- start ---------- */

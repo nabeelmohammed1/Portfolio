@@ -91,6 +91,20 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 .nav__contact--menu { display: none; }
 
+/* Contact Me popup (built by site.js) */
+.contact-menu {
+  position: fixed; z-index: 60; width: 260px; padding: 6px;
+  background: var(--bg-surface); border: 1px solid var(--border); border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .55);
+  animation: contact-in .16s steps(3);
+}
+.contact-menu[hidden] { display: none; }
+@keyframes contact-in { from { opacity: 0; transform: translateY(-6px); } }
+.contact-menu__item { display: grid; gap: 2px; padding: 10px 12px; border-radius: 6px; transition: background .15s; }
+.contact-menu__item:hover, .contact-menu__item:focus-visible { background: rgba(111, 81, 228, .22); outline: none; }
+.contact-menu__label { font-weight: 500; font-size: 16px; line-height: 22px; color: #fff; }
+.contact-menu__detail { font-size: 13px; line-height: 18px; color: var(--text-tertiary); overflow-wrap: anywhere; }
+
 .nav__toggle { display: none; justify-self: end; width: 44px; height: 44px; margin-right: -10px; position: relative; }
 .nav__toggle span {
   position: absolute; left: 10px; width: 24px; height: 2px;
@@ -539,8 +553,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .bp-node__media--empty span { font-size: 14px; color: var(--text-tertiary); }
 .bp-node__media .video-hint { position: absolute; left: 10px; bottom: 10px; padding: 3px 9px; background: rgba(16, 16, 16, .75); border-radius: 4px; font-size: 12px; line-height: 18px; transition: opacity .2s; pointer-events: none; }
 .bp-node__media.is-playing .video-hint { opacity: 0; }
-.bp-node__media--instagram { aspect-ratio: auto; height: 560px; background: #fff; }
-.bp-node__media--instagram iframe { display: block; width: 100%; height: 100%; border: 0; }
+.bp-node__media--instagram { aspect-ratio: auto; background: #fff; container-type: inline-size; }
+/* Sized to Instagram's card: the profile header (about 146px) plus two rows of three square photos.
+   If Instagram reports its exact height, repo.js uses that instead. */
+.bp-node__media--instagram iframe { display: block; width: 100%; height: calc(146px + 66.67cqw); border: 0; }
 .bp-node__link {
   justify-self: start; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 6px 16px;
   border: 1px solid var(--border); border-radius: 8px; font-size: 15px; transition: background .2s, border-color .2s;

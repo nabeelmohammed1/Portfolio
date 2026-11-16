@@ -208,6 +208,70 @@ function setUpLinkPreview(links) {
   addEventListener("scroll", hide, { passive: true });
 }
 
+/* "Contact Me" opens a small menu with LinkedIn or Email instead of going straight
+   to email. Without scripts the button still works as a plain email link. */
+function setUpContactMenu() {
+  const triggers = [...document.querySelectorAll(".nav__contact")];
+  if (!triggers.length) return;
+  const menu = document.createElement("div");
+  menu.className = "contact-menu";
+  menu.id = "contact-menu";
+  menu.setAttribute("role", "menu");
+  menu.hidden = true;
+  menu.innerHTML = `
+    <a class="contact-menu__item" role="menuitem" href="${LINKS.linkedin}" target="_blank" rel="noopener noreferrer">
+      <span class="contact-menu__label">LinkedIn <span aria-hidden="true">&#8599;</span></span>
+      <span class="contact-menu__detail">Connect with me</span>
+    </a>
+    <a class="contact-menu__item" role="menuitem" href="mailto:${LINKS.email}">
+      <span class="contact-menu__label">Email</span>
+      <span class="contact-menu__detail">${LINKS.email}</span>
+    </a>`;
+  document.body.append(menu);
+  let openFor = null;
+
+  const place = (trigger) => {
+    const r = trigger.getBoundingClientRect();
+    const width = menu.offsetWidth;
+    // Line up the menu's right edge with the button, kept inside the screen.
+    const left = Math.min(Math.max(12, r.right - width), innerWidth - width - 12);
+    menu.style.left = `${left}px`;
+    menu.style.top = `${r.bottom + 10}px`;
+  };
+  const close = () => {
+    if (!openFor) return;
+    menu.hidden = true;
+    openFor.setAttribute("aria-expanded", "false");
+    openFor = null;
+  };
+  const open = (trigger, viaKeyboard) => {
+    openFor = trigger;
+    menu.hidden = false;
+    trigger.setAttribute("aria-expanded", "true");
+    place(trigger);
+    if (viaKeyboard) menu.querySelector("a").focus();
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.setAttribute("aria-haspopup", "menu");
+    trigger.setAttribute("aria-expanded", "false");
+    trigger.setAttribute("aria-controls", "contact-menu");
+    trigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (openFor === trigger) close();
+      else { close(); open(trigger, event.detail === 0); }
+    });
+  });
+  menu.addEventListener("click", () => setTimeout(close, 0));
+  document.addEventListener("click", (event) => { if (openFor && !menu.contains(event.target)) close(); });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && openFor) { const t = openFor; close(); t.focus(); }
+  });
+  addEventListener("resize", () => { if (openFor) place(openFor); });
+  addEventListener("scroll", () => { if (openFor) place(openFor); }, { passive: true });
+}
+
 function setUpMobileNav() {
   const nav = document.querySelector(".nav");
   const toggle = nav.querySelector(".nav__toggle");
@@ -1032,6 +1096,7 @@ function runLoader(startHero) {
 }
 
 setUpLinks();
+setUpContactMenu();
 setUpAboutLinks();
 setUpMobileNav();
 setUpFilters();
