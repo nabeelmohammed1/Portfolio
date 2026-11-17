@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Me (Mockup) | Nabeel Mohammed</title>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="About Nabeel Mohammed: experience, projects and education.">
+  <meta name="theme-color" content="#6f51e4">
+  <script>
+    /* Show the loading screen once per visit, before first paint */
+    try { if (!sessionStorage.getItem("loaderSeen")) document.documentElement.classList.add("is-loading"); } catch (err) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css?v=0501b2b3">
+  <style>
+    /* ---------- About page mockup: a 2D side-scrolling walk through my journey ---------- */
+    .mock-note { margin: 24px 0 0; padding: 10px 14px; border: 1px dashed var(--main-hover); border-radius: 8px; color: var(--text-tertiary); font-size: 14px; line-height: 20px; }
+    .mock-note strong { color: #fff; }
+    .journey-title { margin: 0 0 40px; }
+
+    /* Billboards (used both in the walk and in the simple fallback grid) */
+    .bb { display: block; color: inherit; }
+    .bb-board {
+      position: relative; display: grid; gap: 14px; align-content: start; padding: 18px;
+      background: #1b1b1b; border: 6px solid #2f2f2f; border-radius: 6px; box-shadow: 0 0 0 2px #0c0c0c, 0 18px 40px rgba(0, 0, 0, .5);
+    }
+    /* little pixel bulbs along the top of each board */
+    .bb-board::before { content: ""; position: absolute; left: 14px; right: 14px; top: -13px; height: 6px; background: repeating-linear-gradient(90deg, #ffd27a 0 6px, transparent 6px 24px); filter: drop-shadow(0 0 4px rgba(255, 210, 122, .8)); }
+    .bb-level { font: 700 13px/1 var(--font-heading); letter-spacing: .16em; text-transform: uppercase; color: #cfc6f7; }
+    .bb-title { font: 700 24px/1.2 var(--font-heading); color: #fff; }
+    .bb-text { font-size: 16px; line-height: 25px; color: var(--text-primary); }
+    .bb--level .bb-board { background: linear-gradient(135deg, #4a35a8, #241a52); border-color: var(--main-hover); }
+    .bb--level .bb-title { font-size: 42px; line-height: 1; text-transform: uppercase; }
+    .bb--text .bb-title { font-size: 28px; }
+    .bb--cover .bb-board { grid-template-columns: 150px minmax(0, 1fr); align-items: center; }
+    .bb-cover { width: 150px; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 3px; box-shadow: 0 6px 16px rgba(0, 0, 0, .5); }
+    .bb-photo { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 3px; }
+    .bb-copy { display: grid; gap: 8px; }
+    .bb-posts { display: none; }
+    a.bb:hover .bb-board { border-color: var(--main-hover); }
+
+    .walk { position: relative; }
+    .walk-frame { padding: 0 var(--gutter); }
+    .walk-track { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 32px 20px; }
+    .scene, .walk-hud, .walker, .bb-palm, .bb-building, .walk-fog { display: none; }
+    .walker { pointer-events: none; }
+
+    /* ---------- the side-scrolling walk (switched on by the script) ---------- */
+    .walk.is-on { height: calc(var(--length) + 100svh); }
+    .walk.is-on .walk-frame { position: sticky; top: var(--nav-height); height: calc(100svh - var(--nav-height)); overflow: hidden; padding: 0; }
+    /* Fog that rolls in at the switch from beach to city (and back), hiding the swap.
+       --fog peaks when you're right at the transition. */
+    .walk.is-on .walk-fog {
+      display: block; position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: var(--fog, 0);
+      background:
+        radial-gradient(ellipse 55% 40% at 25% 65%, rgba(214, 202, 236, .85), transparent 75%),
+        radial-gradient(ellipse 60% 45% at 72% 50%, rgba(196, 180, 226, .8), transparent 75%),
+        radial-gradient(ellipse 50% 35% at 50% 25%, rgba(176, 156, 214, .7), transparent 75%),
+        linear-gradient(rgba(150, 128, 196, .55), rgba(198, 186, 228, .7) 55%, rgba(170, 150, 206, .65));
+    }
+    /* Each set of billboards only shows in its own environment */
+    .walk.is-on .bb--beach { opacity: var(--beach-vis, 1); }
+    .walk.is-on .bb--city { opacity: var(--city-vis, 0); }
+    .walk.is-on.in-city .bb--beach, .walk.is-on:not(.in-city) .bb--city { pointer-events: none; }
+
+    /* Two environments; the city fades in as you reach Level 3 (--city goes 0 to 1) */
+    .walk.is-on .scene { display: block; position: absolute; inset: 0; }
+    .walk.is-on .scene--beach { background: #e9e3f3; } /* matches the haze at the bottom of the sky drawing */
+    .walk.is-on .scene--city { opacity: var(--city, 0); background: #e9e3f3; }
+    .walk.is-on .scene > div { position: absolute; left: 0; right: 0; background-repeat: repeat-x; }
+
+    /* Trinidad beach, from Nabeel's own sky, sea and sand drawings (each repeats sideways) */
+    /* Each drawing fills the whole scene at its original canvas proportions, so the
+       sky, sea and sand sit exactly where they were drawn. */
+    .beach-sky, .beach-sea, .beach-sand { top: 0; bottom: 0; background-size: auto 100%; background-repeat: repeat-x; }
+    .beach-sky { background-image: url("assets/images/journey-scene/sky.webp"); background-position: var(--far-x, 0) 0; }
+    .beach-sea { background-image: url("assets/images/journey-scene/sea.webp"); background-position: var(--mid-x, 0) 0; }
+    .beach-sand { background-image: url("assets/images/journey-scene/sand.webp"); background-position: var(--road-x, 0) 0; }
+
+    /* Atlanta at dusk, drawn to match: the same sky tinted for evening, hand-drawn skylines, and the sand drawing recoloured as the street */
+    /* The same sky drawing as the beach, so the whole walk shares one sky */
+    .city-sky { top: 0; bottom: 0; background: url("assets/images/journey-scene/sky.webp") var(--far-x, 0) 0 / auto 100% repeat-x; }
+    .city-far { bottom: calc(var(--road-h) - 4px); height: 46%; background: url("assets/images/journey-scene/city-far.svg") var(--far-x, 0) 100% / auto 100% repeat-x; }
+    .city-near { bottom: calc(var(--road-h) - 4px); height: 34%; background: url("assets/images/journey-scene/city-near.svg") var(--mid-x, 0) 100% / auto 100% repeat-x; }
+    .city-street { bottom: 0; height: var(--road-h); }
+    .city-street::before, .city-street::after { content: ""; position: absolute; left: 0; right: 0; }
+    /* sidewalk: pale slabs with joints, and a dark kerb along its front edge */
+    .city-street::before { top: 0; height: 30%; border-top: 4px solid #150f28; border-bottom: 6px solid #150f28;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 86px, #6d6787 86px 90px) var(--road-x, 0) 0 / 100% 100% repeat-x,
+        linear-gradient(#a7a2bd, #8f89a8); }
+    /* asphalt: dark, with a dashed yellow centre line, a white edge line and a little texture */
+    .city-street::after { top: 30%; bottom: 0;
+      background:
+        repeating-linear-gradient(90deg, #f7d98f 0 70px, transparent 70px 150px) var(--road-x, 0) 55% / 100% 8px repeat-x,
+        linear-gradient(transparent 0 calc(100% - 14px), #e8e6f0 calc(100% - 14px) calc(100% - 9px), transparent calc(100% - 9px)),
+        linear-gradient(#e8e6f0 0 5px, transparent 5px) 0 14px / 100% 100% no-repeat,
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, .04) 0 3px, transparent 3px 40px) var(--road-x, 0) 0 / 100% 100%,
+        linear-gradient(#34313f, #2a2733); }
+
+    /* Beach billboards: laid out exactly like the Figma example. The whole pair is one box
+       with the Figma group's proportions (2878 x 1763); everything inside is placed in % of it. */
+    .walk.is-on .bb.bb--beach { position: relative; height: var(--grp-h); aspect-ratio: 2878 / 1763; width: auto; display: block; } /* beats the general billboard width */
+    .walk.is-on .bb-palm { display: block; position: absolute; height: 93.02%; width: auto; pointer-events: none; }
+    .walk.is-on .bb-palm--l { left: 0; top: 6.98%; }
+    .walk.is-on .bb-palm--r { right: 0; top: 0; }
+    .walk.is-on .bb-ropes { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+    .walk.is-on .bb-ropes line { stroke: #b48a56; stroke-width: 4; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+    .walk.is-on .bb--beach .bb-board {
+      position: absolute; left: 22.86%; top: 46.51%; width: 60.29%; min-height: 27.45%;
+      display: grid; grid-template-columns: 34% minmax(0, 1fr); align-items: center; gap: 12px; padding: 12px;
+      background: #fbf3e1; color: #2a1b10; border: 4px solid #3a2414; border-radius: 4px 4px 18px 18px / 4px 4px 10px 10px;
+      box-shadow: 0 8px 0 rgba(58, 36, 20, .18);
+    }
+    .walk.is-on .bb--beach .bb-board::before { display: none; }
+    .walk.is-on .bb--beach.bb--cover .bb-board { grid-template-columns: 20% minmax(0, 1fr); }
+    .walk.is-on .bb--beach.bb--level .bb-board, .walk.is-on .bb--beach.bb--text .bb-board { grid-template-columns: minmax(0, 1fr); }
+    .walk.is-on .bb--beach .bb-cover { width: 100%; border: 3px solid #3a2414; box-shadow: none; }
+    .walk.is-on .bb--beach .bb-photo { aspect-ratio: 4 / 3; border: 3px solid #3a2414; }
+    .walk.is-on .bb--beach .bb-copy { gap: 4px; }
+    .walk.is-on .bb--beach .bb-title { font-size: 18px; color: #2a1b10; }
+    .walk.is-on .bb--beach .bb-text { font-size: 14px; line-height: 21px; color: #4a3424; }
+    .walk.is-on .bb--beach.bb--level .bb-board { background: #6f51e4; color: #fff; }
+    .walk.is-on .bb--beach.bb--level .bb-title { font-size: 30px; color: #fff; }
+    .walk.is-on .bb--beach.bb--level .bb-text { color: #fff; }
+    .walk.is-on .bb--beach.bb--level .bb-level { color: #e8e2ff; }
+    .walk.is-on .bb--beach.bb--text .bb-title { font-size: 22px; }
+    .walk.is-on a.bb--beach:hover .bb-board { border-color: #6f51e4; }
+    @media (max-width: 767px) {
+      .walk.is-on .bb--beach .bb-board { grid-template-columns: minmax(0, 1fr); left: 14%; width: 72%; }
+      .walk.is-on .bb--beach.bb--cover .bb-board { grid-template-columns: 30% minmax(0, 1fr); }
+      .walk.is-on .bb--beach .bb-photo { aspect-ratio: 2 / 1; }
+    }
+
+    /* City billboards: on the roof of a hand-drawn building */
+    .walk.is-on .bb--city .bb-board { background: #1c1733; border: 4px solid #150f28; box-shadow: 0 0 0 2px rgba(136, 114, 221, .55), 0 0 26px rgba(136, 114, 221, .4); }
+    .walk.is-on .bb--city .bb-posts { height: 26px; padding: 0 22%; }
+    .walk.is-on .bb--city .bb-posts i { width: 14px; background: #2a2150; border: 3px solid #150f28; border-bottom: 0; }
+    .walk.is-on .bb-building { display: block; height: calc(var(--bh) * 1px * var(--b-scale, 1)); margin: 0 -7%;
+      border: 4px solid #150f28; border-bottom: 0; border-radius: 6px 6px 0 0;
+      background:
+        repeating-linear-gradient(180deg, transparent 0 14px, #3b3168 14px 30px),
+        repeating-linear-gradient(90deg, #3b3168 0 16px, #ffcf6b 16px 28px, #3b3168 28px 46px, rgba(255, 207, 107, .35) 46px 58px, #3b3168 58px 74px); }
+    .walk.is-on .walk-track {
+      position: absolute; left: 0; bottom: calc(var(--road-h) * .3); display: flex; align-items: flex-end; gap: var(--gap);
+      padding-left: var(--start); grid-template-columns: none; will-change: transform;
+    }
+    .walk.is-on .bb { flex: none; width: var(--board-w); display: flex; flex-direction: column; }
+    .walk.is-on .bb-posts { display: flex; justify-content: space-between; height: var(--post-h); padding: 0 18%; }
+    .walk.is-on .bb-posts i { width: 18px; background: repeating-linear-gradient(180deg, #34343f 0 14px, #2a2a33 14px 18px); }
+    .walk.is-on .walker {
+      display: block; position: absolute; left: 14%; bottom: calc(var(--road-h) * .16); height: var(--walker-h); width: calc(var(--walker-h) * 326 / 900); z-index: 3;
+    }
+    /* Character: Nabeel's drawing. It bobs and sways a little with each step while you scroll. */
+    .walker__img { display: block; height: 100%; width: auto; transform-origin: 50% 100%; }
+    .walker__shadow { position: absolute; left: 50%; bottom: -6px; width: 80%; height: 14px; margin-left: -40%; border-radius: 50%; background: rgba(42, 27, 16, .28); filter: blur(2px); transform-origin: 50% 50%; }
+    .walk.is-walking .walker__img { animation: step .32s ease-in-out infinite alternate; }
+    .walk.is-walking .walker__shadow { animation: step-shadow .32s ease-in-out infinite alternate; }
+    .walk.is-backwards .walker { transform: scaleX(-1); }
+    @keyframes step { from { transform: translateY(0) rotate(-1.5deg); } to { transform: translateY(-5px) rotate(1.5deg); } }
+    @keyframes step-shadow { from { transform: scaleX(1); opacity: 1; } to { transform: scaleX(.85); opacity: .75; } }
+    .walk.is-on .walk-hud {
+      display: flex; position: absolute; left: var(--gutter); top: 22px; gap: 10px; align-items: center; z-index: 4;
+      padding: 8px 12px; background: rgba(14, 14, 14, .8); border: 1px solid #2a2a2a; border-radius: 8px;
+      font: 700 13px/1 var(--font-heading); letter-spacing: .12em; text-transform: uppercase; color: #fff;
+    }
+    .walk-hud__bar { width: 160px; height: 8px; background: repeating-linear-gradient(90deg, #333 0 8px, transparent 8px 11px); }
+    .walk-hud__fill { display: block; height: 100%; width: var(--progress, 0%); background: repeating-linear-gradient(90deg, var(--main-hover) 0 8px, transparent 8px 11px); }
+    .walk-hud__hint { color: var(--text-tertiary); font-weight: 500; letter-spacing: .08em; }
+    /* Skip button, in the same style as the bar, top right */
+    .walk-skip { display: none; }
+    .walk.is-on .walk-skip {
+      display: inline-flex; position: absolute; right: var(--gutter); top: 22px; z-index: 4; align-items: center; gap: 8px;
+      padding: 8px 14px; background: rgba(14, 14, 14, .8); border: 1px solid #2a2a2a; border-radius: 8px;
+      font: 700 13px/1 var(--font-heading); letter-spacing: .12em; text-transform: uppercase; color: #fff;
+      transition: background .2s, border-color .2s;
+    }
+    .walk.is-on .walk-skip:hover, .walk.is-on .walk-skip:focus-visible { background: var(--main); border-color: var(--main-hover); }
+    .walk-skip span { letter-spacing: -.1em; color: var(--main-hover); }
+    .walk-skip:hover span, .walk-skip:focus-visible span { color: #fff; }
+
+    .walk-after { padding-top: 96px; padding-bottom: 64px; }
+    @media (max-width: 767px) {
+      .walk-hud__hint { display: none; }
+      .walk.is-on .walk-skip { padding: 8px 10px; font-size: 12px; }
+      .bb--cover .bb-board { grid-template-columns: 96px minmax(0, 1fr); }
+      .bb-cover { width: 96px; }
+      .bb-text { font-size: 15px; line-height: 23px; }
+      .bb--level .bb-title { font-size: 32px; }
+      .walk.is-on .walker { left: 8%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader" aria-hidden="true">
+    <canvas class="loader__canvas"></canvas>
+    <div class="loader__logo"></div>
+    <div class="loader__text">
+      <p class="loader__name">Nabeel Mohammed</p>
+      <div class="loader__track"><div class="loader__bar"></div></div>
+      <p class="loader__count">0%</p>
+    </div>
+  </div>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__name">Nabeel</span>
+        <span class="brand__role">Gameplay Programmer</span>
+      </a>
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav__links nav__panel" aria-label="Main">
+        <a href="work.html">Work</a>
+        <a href="repo.html">Repo</a>
+        <a href="about.html" aria-current="page">About Me</a>
+        <a href="#" data-link="resume">Resume</a>
+        <a class="nav__contact nav__contact--menu" href="#" data-link="email">Contact Me</a>
+      </nav>
+      <a class="nav__contact nav__contact--bar" href="#" data-link="email">Contact Me</a>
+    </div>
+  </header>
+  <main class="about-page">
+    <div class="container">
+      <p class="mock-note"><strong>Mockup:</strong> “My Journey” as a 2D walk. Keep scrolling to walk along the road; each billboard tells part of the story. All billboard text is a first draft.</p>
+      <h1 class="page-title" style="margin-top: 48px">About Me</h1>
+    <section class="intro">
+      <img class="intro__photo" src="assets/images/portrait.webp" alt="Nabeel standing with arms crossed beside a rabbit-shaped topiary" width="317" height="432">
+      <div class="intro__text">
+        <p>Versatile Gameplay Programmer | Designer crafting gameplay, levels, and systems that challenge and inspire.</p>
+        <p>I strive to create experiences that engage players and encourage them to keep returning. My passion for Game Development started when I was younger and used games as a means to escape reality and become immersed in the world.</p>
+        <p>My goal is to create similar experiences for players to engage and enjoy.</p>
+        <p>I’m open to new opportunities and always love to chat. Say hi, whether it’s about work or anything else!</p>
+      </div>
+    </section>
+      <h2 class="page-title journey-title">My Journey</h2>
+    </div>
+
+    <section class="walk" data-walk aria-label="My journey">
+      <div class="walk-frame">
+        <div class="scene scene--beach" aria-hidden="true">
+          <div class="beach-sky"></div><div class="beach-sea"></div><div class="beach-sand"></div>
+        </div>
+        <div class="scene scene--city" aria-hidden="true">
+          <div class="city-sky"></div><div class="city-far"></div><div class="city-near"></div><div class="city-street"></div>
+        </div>
+        <div class="walk-track">
+          <div class="bb bb--level bb--beach" data-level="Level 01">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><span class="bb-level">Level 01</span><h3 class="bb-title">The Start</h3><p class="bb-text">These are the first few games I remember playing that really influenced my childhood and my love for gaming.</p></span>
+          </div>
+          <div class="bb bb--cover bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><img class="bb-cover" src="assets/images/journey/fusionfall.webp" alt="FusionFall cover art" loading="lazy"><span class="bb-copy"><h3 class="bb-title">FusionFall</h3><p class="bb-text">A core game memory that has stuck with me to this day. This era of browser games will always have a place in my heart.</p></span></span>
+          </div>
+          <div class="bb bb--cover bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><img class="bb-cover" src="assets/images/journey/pokemon.webp" alt="Pokémon cover art" loading="lazy"><span class="bb-copy"><h3 class="bb-title">Pokémon</h3><p class="bb-text">I remember getting my first shiny Pokémon and discovering all the secrets hidden in the games.</p></span></span>
+          </div>
+          <div class="bb bb--cover bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><img class="bb-cover" src="assets/images/journey/minecraft.webp" alt="Minecraft cover art" loading="lazy"><span class="bb-copy"><h3 class="bb-title">Minecraft</h3><p class="bb-text">Minecraft let me take a blank canvas and build whatever my mind could think of: a blank canvas to fill to my imagination’s content.</p></span></span>
+          </div>
+          <div class="bb bb--cover bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><img class="bb-cover" src="assets/images/journey/mario-kart.webp" alt="Mario Kart cover art" loading="lazy"><span class="bb-copy"><h3 class="bb-title">Mario Kart</h3><p class="bb-text">I remember learning the different routes and off-road shortcuts on each course, and discovering everything a racing game can contain.</p></span></span>
+          </div>
+          <div class="bb bb--text bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><h3 class="bb-title">These worlds captivated me.</h3><p class="bb-text">Each of these games has influenced my life, and they still shape some of the gameplay decisions I make today.</p></span>
+          </div>
+          <div class="bb bb--level bb--beach" data-level="Level 02">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><span class="bb-level">Level 02</span><h3 class="bb-title">The Spark</h3><p class="bb-text">As I got older, I started seeing games from a different perspective and looking into the design and world-building they offer.</p></span>
+          </div>
+          <div class="bb bb--cover bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><img class="bb-cover" src="assets/images/journey/titanfall-2.webp" alt="Titanfall 2 cover art" loading="lazy"><span class="bb-copy"><h3 class="bb-title">Titanfall 2</h3><p class="bb-text">The movement and story behind this game stuck out to me, and intrigued me enough to recreate its movement style myself.</p></span></span>
+          </div>
+          <div class="bb bb--cover bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><img class="bb-cover" src="assets/images/journey/destiny.webp" alt="Destiny cover art" loading="lazy"><span class="bb-copy"><h3 class="bb-title">Destiny</h3><p class="bb-text">Creating an engaging story that has lasted 10+ years, with some of the smoothest gunplay I’ve ever felt, really influenced my thinking.</p></span></span>
+          </div>
+          <div class="bb bb--text bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><h3 class="bb-title">I wanted to know how they were made.</h3><p class="bb-text">These games opened my mind to what games can be, and led me down the rabbit hole of how games are made, until I finally discovered game development.</p></span>
+          </div>
+          <div class="bb bb--level bb--city" style="--bh: 150" data-level="Level 03">
+            <span class="bb-board"><span class="bb-level">Level 03</span><h3 class="bb-title">SCAD</h3><p class="bb-text">At the Savannah College of Art and Design I studied Interactive Design and Game Development, and started building games of my own.</p></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </div>
+          <div class="bb bb--photo bb--city" style="--bh: 95">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/scad-group.webp" alt="" loading="lazy"><span class="bb-copy"><h3 class="bb-title">Finding my people</h3><p class="bb-text">SCAD gave me a community of artists, designers and programmers to learn from, and the chance to work on real projects with real teams.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </div>
+          <a class="bb bb--photo bb--city" style="--bh: 175" href="cosmic.html">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/cosmic-assault.webp" alt="" loading="lazy"><span class="bb-copy"><h3 class="bb-title">Cosmic Assault</h3><p class="bb-text">One of my first complete games: a Unity shooter I later rebuilt into an endless survival mode with scaling difficulty and score-driven bosses.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </a>
+          <a class="bb bb--photo bb--city" style="--bh: 120" href="cave.html">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/papa-bois.webp" alt="" loading="lazy"><span class="bb-copy"><h3 class="bb-title">Cave of Papa Bois</h3><p class="bb-text">An environment inspired by Caribbean folklore, where I learned the full 3D art pipeline from greyboxing to final lighting.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </a>
+          <a class="bb bb--photo bb--city" style="--bh: 70" href="rod3nt.html">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/project-rodent.webp" alt="" loading="lazy"><span class="bb-copy"><h3 class="bb-title">Project Rod3nt</h3><p class="bb-text">My capstone: a stealth action game where I led gameplay programming, built the AI and ability systems, and ran QA with a team of 15.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </a>
+          <div class="bb bb--level bb--city" style="--bh: 160" data-level="Level 04">
+            <span class="bb-board"><span class="bb-level">Level 04</span><h3 class="bb-title">Now</h3><p class="bb-text">Today I’m doing what that kid with the controller always wanted: making games for other people to fall in love with.</p></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </div>
+          <div class="bb bb--photo bb--city" style="--bh: 105">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/graduation.webp" alt="" loading="lazy"><span class="bb-copy"><h3 class="bb-title">Recent SCAD graduate</h3><p class="bb-text">I graduated Magna Cum Laude in 2026 with a BFA in Interactive Design and Game Development.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </div>
+          <div class="bb bb--text bb--city" style="--bh: 140">
+            <span class="bb-board"><h3 class="bb-title">5 titles released on Steam</h3><p class="bb-text">From game jam prototypes to full releases, I’ve helped ship five games on Steam, and I’m only getting started.</p></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </div>
+          <a class="bb bb--photo bb--city" style="--bh: 85" href="notlb.html">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/living-bubble.webp" alt="" loading="lazy"><span class="bb-copy"><h3 class="bb-title">Studio Nailgun</h3><p class="bb-text">As Gameplay Programmer and Technical Artist, I helped turn a 48-hour game jam idea into Night of the Living Bubble, now on Steam.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </a>
+          <a class="bb bb--photo bb--city" style="--bh: 165" href="dog.html">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/dogwater-studios.webp" alt="" loading="lazy"><span class="bb-copy"><h3 class="bb-title">DogWater Studios</h3><p class="bb-text">As an Unreal Engine Developer on Imprint, I work on level streaming, performance and core mechanics.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="walk-fog" aria-hidden="true"></div>
+        <div class="walker" aria-hidden="true"><span class="walker__shadow"></span><img class="walker__img" src="assets/images/journey-scene/character.webp" alt="" width="326" height="900"></div>
+        <div class="walk-hud" aria-hidden="true"><span class="walk-hud__level">Level 01</span><span class="walk-hud__bar"><span class="walk-hud__fill"></span></span><span class="walk-hud__hint">Scroll to walk</span></div>
+        <button class="walk-skip" type="button" data-skip>Skip to experience <span aria-hidden="true">&#9656;&#9656;</span></button>
+      </div>
+    </section>
+
+    <div class="container walk-after" id="experience">
+    <section class="resume-section">
+      <h2 class="section-title">Experiences</h2>
+      <ul class="resume-list">
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="dogwater-studios">Unreal Engine Developer</p><p class="resume-item__org">Dogwater Studios</p></div>
+          <p class="resume-item__date">Jun 2026 - Present</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="studio-nailgun">Gameplay Programmer &amp; Technical Artist</p><p class="resume-item__org">Studio Nailgun</p></div>
+          <p class="resume-item__date">Jan 2025 - Present</p>
+        </li>
+      </ul>
+    </section>
+    <section class="resume-section">
+      <h2 class="section-title">Projects</h2>
+      <ul class="resume-list">
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="scadserve-x-ronald-mcdonald-house">Technical &amp; VR Manager</p><p class="resume-item__org">SCADServe X Ronald McDonald House</p></div>
+          <p class="resume-item__date">Jan 2026 - Mar 2026</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="project-rod3nt">Gameplay Programmer &amp; QA Engineer</p><p class="resume-item__org">Project Rod3nt</p></div>
+          <p class="resume-item__date">Sept 2025 - May 2026</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="scadpro-x-provost">Project Manager</p><p class="resume-item__org">SCADPRO X Provost</p></div>
+          <p class="resume-item__date">Jan 2025 - Mar 2025</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="xolo-and-the-forgotten-gods">UI Programmer</p><p class="resume-item__org">Xolo and the Forgotten Gods</p></div>
+          <p class="resume-item__date">Sept 2024 - May 2025</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="scour">Gameplay Programmer</p><p class="resume-item__org">Scour</p></div>
+          <p class="resume-item__date">Sept 2024 - May 2025</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="scadpro-rapid-fire-x-deloitte">Level &amp; Lighting Designer</p><p class="resume-item__org">SCADPRO Rapid Fire X Deloitte</p></div>
+          <p class="resume-item__date">Mar 2024 - May 2024</p>
+        </li>
+      </ul>
+    </section>
+    <section class="resume-section">
+      <h2 class="section-title">Game Jams</h2>
+      <ul class="resume-list">
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="luck-of-the-maze-unity-game-jam-2026">Gameplay Programmer &amp; Designer</p><p class="resume-item__org">Luck of the Maze- Unity Game Jam 2026</p></div>
+          <p class="resume-item__date">Nov 2026</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="under-the-lens-global-game-jam-2026">Gameplay Programmer</p><p class="resume-item__org">Under the Lens- Global Game Jam 2026</p></div>
+          <p class="resume-item__date">Jan 2026</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="night-of-the-living-bubble-global-game-jam-2025">Gameplay Programmer &amp; Technical Designer</p><p class="resume-item__org">Night of the Living Bubble- Global Game Jam 2025</p></div>
+          <p class="resume-item__date">Jan 2025</p>
+        </li>
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="eye-love-you-global-game-jam-2024">UI Programmer &amp; Designer</p><p class="resume-item__org">Eye Love You- Global Game Jam 2024</p></div>
+          <p class="resume-item__date">Jan 2024</p>
+        </li>
+      </ul>
+    </section>
+    <section class="resume-section">
+      <h2 class="section-title">Education</h2>
+      <ul class="resume-list">
+        <li class="resume-item">
+          <div><p class="resume-item__role" data-link-key="savannah-college-of-art-and-design">BFA Interactive Design and Game Development (Magna Cum Laude)</p><p class="resume-item__org">Savannah College of Art and Design</p></div>
+          <p class="resume-item__date">Jun 2022 - Jun 2026</p>
+        </li>
+      </ul>
+    </section>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__name">Nabeel Mohammed</p>
+      <div class="footer__links">
+        <a href="#" data-link="linkedin">LinkedIn</a>
+        <a href="#" data-link="github">GitHub</a>
+        <a href="#" data-link="email">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/site.js?v=8101f10d"></script>
+  <script>
+    /* The walk: while the tall section passes, the scene is pinned and scrolling down
+       moves the billboards and road left (the character walks), with the scenery
+       behind moving slower for depth. Reduced motion gets a simple grid instead. */
+    (() => {
+      const walk = document.querySelector("[data-walk]");
+      if (!walk || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      walk.classList.add("is-on");
+      const frameEl = walk.querySelector(".walk-frame");
+      const track = walk.querySelector(".walk-track");
+      const hudLevel = walk.querySelector(".walk-hud__level");
+      const boards = [...walk.querySelectorAll(".bb")];
+      let distance = 0;
+      let lastTravel = 0;
+      let stopTimer = 0;
+
+      const layout = () => {
+        const w = frameEl.clientWidth;
+        const h = frameEl.clientHeight;
+        const small = w < 768;
+        // Sand starts about 68% down the drawing, and the palms are about 75% of its height.
+        walk.style.setProperty("--road-h", `${Math.round(h * 0.32)}px`);
+        // Palms about 3x the character's height; the banner (60% of the pair's width) must fit the screen.
+        const groupFromWidth = (w - 32) / 0.6029 / (2878 / 1763);
+        const groupH = Math.round(Math.min(h * 0.62 / 0.9302, groupFromWidth));
+        const palmH = groupH * 0.9302;
+        walk.style.setProperty("--grp-h", `${groupH}px`);
+        walk.style.setProperty("--walker-h", `${Math.round(Math.max(64, palmH / 3.1))}px`);
+        // Figma leaves 490 between pairs, relative to a 1640-tall palm.
+        walk.style.setProperty("--gap", `${Math.round(palmH * 490 / 1640)}px`);
+        walk.style.setProperty("--board-w", `${small ? Math.min(300, w - 90) : 440}px`);
+        walk.style.setProperty("--post-h", `${small ? 30 : Math.max(36, h * 0.08)}px`);
+        walk.style.setProperty("--b-scale", `${Math.min(1, h / 900)}`);
+        // The first billboard starts just off the right of the screen.
+        walk.style.setProperty("--start", `${Math.round(w * (small ? 0.9 : 0.6))}px`);
+        distance = Math.max(0, track.scrollWidth - w * 0.55);
+        walk.style.setProperty("--length", `${distance}px`);
+      };
+
+      let frame = 0;
+      const update = () => {
+        frame = 0;
+        const box = walk.getBoundingClientRect();
+        const progress = Math.min(1, Math.max(0, -box.top / Math.max(1, walk.offsetHeight - frameEl.offsetHeight)));
+        const travel = progress * distance;
+        track.style.transform = `translate3d(${-travel}px, 0, 0)`;
+        walk.style.setProperty("--road-x", `${-travel}px`);
+        walk.style.setProperty("--mid-x", `${-travel * 0.5}px`);
+        walk.style.setProperty("--far-x", `${-travel * 0.2}px`);
+        walk.style.setProperty("--progress", `${progress * 100}%`);
+        // The character walks while you scroll, faces the way you're going, then stops.
+        if (travel !== lastTravel && progress > 0 && progress < 1) {
+          walk.classList.add("is-walking");
+          walk.classList.toggle("is-backwards", travel < lastTravel);
+          clearTimeout(stopTimer);
+          stopTimer = setTimeout(() => walk.classList.remove("is-walking"), 160);
+        }
+        lastTravel = travel;
+        // HUD shows the last Level sign you've passed.
+        const walkerX = frameEl.getBoundingClientRect().left + frameEl.clientWidth * 0.2;
+        let level = boards[0].dataset.level || "Level 01";
+        boards.forEach((b) => { if (b.dataset.level && b.getBoundingClientRect().left < walkerX + 200) level = b.dataset.level; });
+        hudLevel.textContent = level;
+        // Fade from the beach to the city as the Level 3 sign approaches the character.
+        const cityBoard = boards.find((b) => b.dataset.level === "Level 03");
+        if (cityBoard) {
+          const gap = cityBoard.getBoundingClientRect().left - walkerX;
+          // The switch happens over a longer stretch, with smooth easing so nothing pops.
+          const ease = (t) => t * t * (3 - 2 * t);
+          const city = ease(Math.min(1, Math.max(0, (1100 - gap) / 1000)));
+          walk.style.setProperty("--city", `${city.toFixed(3)}`);
+          // Fog builds gently, peaks halfway, then clears; beach billboards fade out before
+          // the peak and the city's fade in after it.
+          const peak = Math.max(0, 1 - Math.abs(city - 0.5) * 2);
+          walk.style.setProperty("--fog", `${(ease(peak) * 0.9).toFixed(3)}`);
+          walk.style.setProperty("--beach-vis", `${ease(Math.max(0, 1 - city * 2.4)).toFixed(3)}`);
+          walk.style.setProperty("--city-vis", `${ease(Math.max(0, city * 2.4 - 1.4)).toFixed(3)}`);
+          walk.classList.toggle("in-city", city > 0.5);
+        }
+      };
+      const queue = () => { if (!frame) frame = requestAnimationFrame(update); };
+
+      /* Fast scroll to a page position (the walk plays at speed on the way). Any wheel,
+         touch or key from the visitor stops it so they're never fighting the page. */
+      let glide = 0;
+      const stopGlide = () => { cancelAnimationFrame(glide); glide = 0; };
+      const glideTo = (target, duration) => {
+        stopGlide();
+        const start = scrollY;
+        const began = performance.now();
+        const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+        const step = (now) => {
+          const t = Math.min(1, (now - began) / duration);
+          scrollTo({ top: start + (target - start) * ease(t), behavior: "instant" });
+          glide = t < 1 ? requestAnimationFrame(step) : 0;
+        };
+        glide = requestAnimationFrame(step);
+      };
+      ["wheel", "touchstart", "keydown"].forEach((type) => addEventListener(type, () => { if (glide) stopGlide(); }, { passive: true }));
+      const walkTop = () => walk.getBoundingClientRect().top + scrollY;
+      const scrollRange = () => walk.offsetHeight - frameEl.offsetHeight;
+
+      // Skip: fast-forward through the rest of the walk and land on the experience section.
+      walk.querySelector("[data-skip]").addEventListener("click", () => {
+        const after = document.getElementById("experience");
+        const nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--nav-height")) || 72;
+        const target = after.getBoundingClientRect().top + scrollY - nav - 24;
+        const distanceLeft = Math.abs(target - scrollY);
+        glideTo(target, Math.min(2600, Math.max(900, distanceLeft * 0.18)));
+      });
+
+
+      layout();
+      update();
+      addEventListener("scroll", queue, { passive: true });
+      addEventListener("resize", () => { layout(); queue(); });
+      walk.querySelectorAll("img").forEach((img) => img.addEventListener("load", () => { layout(); queue(); }, { once: true }));
+    })();
+  </script>
+</body>
+</html>
