@@ -30,6 +30,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Lexend:wght@400;500&display=swap">
   <link rel="stylesheet" href="css/styles.css?v=0501b2b3">
+  <link rel="stylesheet" href="css/journey.css?v=c96ce01f">
+  <link rel="preload" as="image" href="assets/images/journey-scene/sky.webp">
+  <link rel="preload" as="image" href="assets/images/journey-scene/sea.webp">
+  <link rel="preload" as="image" href="assets/images/journey-scene/sand.webp">
+  <link rel="preload" as="image" href="assets/images/journey-scene/character.webp">
 </head>
 <body>
   <div class="loader" aria-hidden="true">
@@ -58,16 +63,149 @@
       <a class="nav__contact nav__contact--bar" href="#" data-link="email">Contact Me</a>
     </div>
   </header>
-  <main class="container about-page">
-    <h1 class="page-title">About Me</h1>
+  <main class="about-page">
+    <div class="container">
+      <h1 class="page-title" style="margin-top: 48px">About Me</h1>
     <section class="intro">
       <img class="intro__photo" src="assets/images/portrait.webp" alt="Nabeel standing with arms crossed beside a rabbit-shaped topiary" width="317" height="432">
       <div class="intro__text">
         <p>Versatile Gameplay Programmer | Designer crafting gameplay, levels, and systems that challenge and inspire.</p>
         <p>I strive to create experiences that engage players and encourage them to keep returning. My passion for Game Development started when I was younger and used games as a means to escape reality and become immersed in the world.</p>
         <p>My goal is to create similar experiences for players to engage and enjoy.</p>
+        <p>I’m open to new opportunities and always love to chat. Say hi, whether it’s about work or anything else!</p>
       </div>
     </section>
+      <h2 class="page-title journey-title">My Journey</h2>
+    </div>
+
+    <section class="walk" data-walk aria-label="My journey">
+      <div class="walk-frame">
+        <div class="scene scene--beach" aria-hidden="true">
+          <div class="beach-sky"></div><div class="beach-sea"></div><div class="beach-sand"></div>
+        </div>
+        <div class="scene scene--city" aria-hidden="true">
+          <div class="city-sky"></div><div class="city-far"></div><div class="city-near"></div><div class="city-street"></div>
+        </div>
+        <div class="walk-track">
+          <div class="bb bb--level bb--beach" data-level="Level 01">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><span class="bb-level">Level 01</span><h3 class="bb-title">The Start</h3><p class="bb-text">These are the first few games I remember playing that really influenced my childhood and my love for gaming.</p></span>
+          </div>
+          <div class="bb bb--cover bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><img class="bb-cover" src="assets/images/journey/fusionfall.webp" alt="FusionFall cover art" width="480" height="711" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">FusionFall</h3><p class="bb-text">A core game memory that has stuck with me to this day. This era of browser games will always have a place in my heart.</p></span></span>
+          </div>
+          <div class="bb bb--cover bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><img class="bb-cover" src="assets/images/journey/pokemon.webp" alt="Pokémon cover art" width="480" height="629" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">Pokémon</h3><p class="bb-text">I remember getting my first shiny Pokémon and discovering all the secrets hidden in the games.</p></span></span>
+          </div>
+          <div class="bb bb--cover bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><img class="bb-cover" src="assets/images/journey/minecraft.webp" alt="Minecraft cover art" width="459" height="640" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">Minecraft</h3><p class="bb-text">Minecraft let me take a blank canvas and build whatever my mind could think of: a blank canvas to fill to my imagination’s content.</p></span></span>
+          </div>
+          <div class="bb bb--cover bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><img class="bb-cover" src="assets/images/journey/mario-kart.webp" alt="Mario Kart cover art" width="480" height="384" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">Mario Kart</h3><p class="bb-text">I remember learning the different routes and off-road shortcuts on each course, and discovering everything a racing game can contain.</p></span></span>
+          </div>
+          <div class="bb bb--text bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><h3 class="bb-title">These worlds captivated me.</h3><p class="bb-text">Each of these games has influenced my life, and they still shape some of the gameplay decisions I make today.</p></span>
+          </div>
+          <div class="bb bb--level bb--beach" data-level="Level 02">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><span class="bb-level">Level 02</span><h3 class="bb-title">The Spark</h3><p class="bb-text">As I got older, I started seeing games from a different perspective and looking into the design and world-building they offer.</p></span>
+          </div>
+          <div class="bb bb--cover bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><img class="bb-cover" src="assets/images/journey/titanfall-2.webp" alt="Titanfall 2 cover art" width="480" height="640" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">Titanfall 2</h3><p class="bb-text">The movement and story behind this game stuck out to me, and intrigued me enough to recreate its movement style myself.</p></span></span>
+          </div>
+          <div class="bb bb--cover bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><img class="bb-cover" src="assets/images/journey/destiny.webp" alt="Destiny cover art" width="480" height="640" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">Destiny</h3><p class="bb-text">Creating an engaging story that has lasted 10+ years, with some of the smoothest gunplay I’ve ever felt, really influenced my thinking.</p></span></span>
+          </div>
+          <div class="bb bb--text bb--beach">
+            <img class="bb-palm bb-palm--l" src="assets/images/journey-scene/palm-left.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <img class="bb-palm bb-palm--r" src="assets/images/journey-scene/palm-right.webp" alt="" width="427" height="720" decoding="async" aria-hidden="true">
+            <svg class="bb-ropes" viewBox="0 0 2878 1763" preserveAspectRatio="none" aria-hidden="true"><line x1="344" y1="820" x2="658" y2="979"/><line x1="2552" y1="768" x2="2393" y2="943"/></svg>
+            <span class="bb-board"><h3 class="bb-title">I wanted to know how they were made.</h3><p class="bb-text">These games opened my mind to what games can be, and led me down the rabbit hole of how games are made, until I finally discovered game development.</p></span>
+          </div>
+          <div class="bb bb--level bb--city" style="--bh: 150" data-level="Level 03">
+            <span class="bb-board"><span class="bb-level">Level 03</span><h3 class="bb-title">SCAD</h3><p class="bb-text">At the Savannah College of Art and Design I studied Interactive Design and Game Development, and started building games of my own.</p></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </div>
+          <div class="bb bb--photo bb--city" style="--bh: 95">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/scad-group.webp" alt="" width="1280" height="960" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">Finding my people</h3><p class="bb-text">SCAD gave me a community of artists, designers and programmers to learn from, and the chance to work on real projects with real teams.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </div>
+          <a class="bb bb--photo bb--city" style="--bh: 175" href="cosmic.html">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/cosmic-assault.webp" alt="" width="1400" height="788" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">Cosmic Assault</h3><p class="bb-text">One of my first complete games: a Unity shooter I later rebuilt into an endless survival mode with scaling difficulty and score-driven bosses.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </a>
+          <a class="bb bb--photo bb--city" style="--bh: 120" href="cave.html">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/papa-bois.webp" alt="" width="1400" height="901" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">Cave of Papa Bois</h3><p class="bb-text">An environment inspired by Caribbean folklore, where I learned the full 3D art pipeline from greyboxing to final lighting.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </a>
+          <a class="bb bb--photo bb--city" style="--bh: 70" href="rod3nt.html">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/project-rodent.webp" alt="" width="1400" height="788" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">Project Rod3nt</h3><p class="bb-text">My capstone: a stealth action game where I led gameplay programming, built the AI and ability systems, and ran QA with a team of 15.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </a>
+          <div class="bb bb--level bb--city" style="--bh: 160" data-level="Level 04">
+            <span class="bb-board"><span class="bb-level">Level 04</span><h3 class="bb-title">Now</h3><p class="bb-text">Today I’m doing what that kid with the controller always wanted: making games for other people to fall in love with.</p></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </div>
+          <div class="bb bb--photo bb--city" style="--bh: 105">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/graduation.webp" alt="" width="1280" height="710" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">Recent SCAD graduate</h3><p class="bb-text">I graduated Magna Cum Laude in 2026 with a BFA in Interactive Design and Game Development.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </div>
+          <div class="bb bb--text bb--city" style="--bh: 140">
+            <span class="bb-board"><h3 class="bb-title">5 titles released on Steam</h3><p class="bb-text">From game jam prototypes to full releases, I’ve helped ship five games on Steam, and I’m only getting started.</p></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </div>
+          <a class="bb bb--photo bb--city" style="--bh: 85" href="notlb.html">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/living-bubble.webp" alt="" width="920" height="430" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">Studio Nailgun</h3><p class="bb-text">As Gameplay Programmer and Technical Artist, I helped turn a 48-hour game jam idea into Night of the Living Bubble, now on Steam.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </a>
+          <a class="bb bb--photo bb--city" style="--bh: 165" href="dog.html">
+            <span class="bb-board"><img class="bb-photo" src="assets/images/dogwater-studios.webp" alt="" width="1264" height="888" loading="lazy" decoding="async"><span class="bb-copy"><h3 class="bb-title">DogWater Studios</h3><p class="bb-text">As an Unreal Engine Developer on Imprint, I work on level streaming, performance and core mechanics.</p></span></span>
+            <span class="bb-posts" aria-hidden="true"><i></i><i></i></span>
+            <span class="bb-building" aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="walk-fog" aria-hidden="true"></div>
+        <div class="walker" aria-hidden="true"><span class="walker__shadow"></span><img class="walker__img" src="assets/images/journey-scene/character.webp" alt="" width="326" height="900"></div>
+        <div class="walk-hud" aria-hidden="true"><span class="walk-hud__level">Level 01</span><span class="walk-hud__bar"><span class="walk-hud__fill"></span></span><span class="walk-hud__hint">Scroll to walk</span></div>
+        <button class="walk-skip" type="button" data-skip>Skip to experience <span aria-hidden="true">&#9656;&#9656;</span></button>
+      </div>
+    </section>
+
+    <div class="container walk-after" id="experience">
     <section class="resume-section">
       <h2 class="section-title">Experiences</h2>
       <ul class="resume-list">
@@ -140,6 +278,7 @@
         </li>
       </ul>
     </section>
+    </div>
   </main>
   <footer class="footer">
     <div class="container footer__inner">
@@ -152,6 +291,7 @@
     </div>
   </footer>
   <script src="js/site.js?v=8101f10d"></script>
+  <script src="js/journey.js?v=d64d7898"></script>
   <script src="js/easter-egg.js?v=f70d1e2e"></script>
 </body>
 </html>
