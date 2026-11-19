@@ -20,7 +20,7 @@ const EGG_CREATURES = [
 ].map((creature) => ({ ...creature, image: `${EGG_SPRITE_URL}/${creature.dex}.png` }));
 
 const EGG_CODE = ["arrowup", "arrowup", "arrowdown", "arrowdown", "arrowleft", "arrowright", "arrowleft", "arrowright", "b", "a"];
-const EGG_MESSAGE = "You found the Eeveelutions!";
+const EGG_MESSAGE = "Eevee is my favourite Pokémon!";
 
 /* Built-in sprite: b body, l belly, a ears, o outline, e eyes (palette order b, l, a, o) */
 const EGG_SPRITE = [
@@ -195,6 +195,20 @@ const EGG_SPRITE = [
     requestAnimationFrame(frame);
   };
 
+  /* How many keys of the code are entered so far (0 to 10). Pages can listen for "egg:progress";
+     a completed code reports 10 once, then resets to 0. */
+  let lastProgress = 0;
+  const reportProgress = () => {
+    let count = 0;
+    for (let n = Math.min(typed.length, EGG_CODE.length); n > 0; n -= 1) {
+      if (typed.slice(-n).join() === EGG_CODE.slice(0, n).join()) { count = n; break; }
+    }
+    if (playing && typed.length === 0) count = EGG_CODE.length;
+    if (count === lastProgress) return;
+    lastProgress = count === EGG_CODE.length ? 0 : count;
+    dispatchEvent(new CustomEvent("egg:progress", { detail: { count, total: EGG_CODE.length } }));
+  };
+
   addEventListener("keydown", (event) => {
     // Don't listen while someone is typing in a form field.
     if (event.target.closest && event.target.closest("input, textarea, select, [contenteditable]")) return;
@@ -203,39 +217,78 @@ const EGG_SPRITE = [
       typed = [];
       play();
     }
+    reportProgress();
   });
 
-  /* Touch screens: swipe up, up, down, down, left, right, left, right, then tap twice */
-  const SWIPE_MIN = 40; // px a finger must travel to count as a swipe
-  const TAP_MAX = 12; // px a finger may move and still count as a tap
-  let touchStart = null;
-  addEventListener("touchstart", (event) => {
-    const t = event.changedTouches[0];
-    touchStart = { x: t.clientX, y: t.clientY };
-  }, { passive: true });
-  addEventListener("touchend", (event) => {
-    if (!touchStart) return;
-    const t = event.changedTouches[0];
-    const dx = t.clientX - touchStart.x;
-    const dy = t.clientY - touchStart.y;
-    touchStart = null;
-    let move = null;
-    if (Math.max(Math.abs(dx), Math.abs(dy)) >= SWIPE_MIN) {
-      // The finger moving up is "up", like pressing the up arrow.
-      move = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "arrowright" : "arrowleft") : (dy > 0 ? "arrowdown" : "arrowup");
-    } else if (Math.abs(dx) <= TAP_MAX && Math.abs(dy) <= TAP_MAX) {
-      // Taps stand in for B then A, but only once all eight swipes are in.
-      const swipes = EGG_CODE.slice(0, 8).join();
-      const done = typed.slice(-8).join() === swipes ? "b" : typed.slice(-9, -1).join() === swipes && typed[typed.length - 1] === "b" ? "a" : null;
-      move = done;
-    }
-    if (!move) return;
+  /* Touch screens: swipe up, up, down, down, left, right, left, right, then tap twice.
+     Phones make this tricky, so:
+     - the finger's path is followed while it moves, so a swipe still counts when the browser
+       takes over to scroll and ends the touch with "touchcancel" instead of "touchend"
+     - pinches (two fingers) are ignored
+     - taps on links and buttons don't count (they do their own thing)
+     - once the code is under way, pull-to-refresh and double-tap zoom are paused, so a
+       "down" swipe at the top of the page or the two final taps don't get swallowed */
+  const SWIPE_MIN = 30; // px a finger must travel to count as a swipe
+  const TAP_MAX = 14; // px a finger may move and still count as a tap
+  const GIVE_UP = 8000; // ms of no progress before the paused browser gestures come back
+  const root = document.documentElement;
+  let touch = null;
+  let restoreTimer = 0;
+  const holdGestures = (on) => {
+    clearTimeout(restoreTimer);
+    root.style.overscrollBehaviorY = on ? "none" : "";
+    root.style.touchAction = on ? "manipulation" : "";
+    if (on) restoreTimer = setTimeout(() => holdGestures(false), GIVE_UP);
+  };
+  const enter = (move) => {
     typed = [...typed, move].slice(-EGG_CODE.length);
     if (typed.join() === EGG_CODE.join()) {
       typed = [];
       play();
     }
+    reportProgress();
+    // Two correct swipes in: the visitor is probably doing the code, so pause browser gestures.
+    holdGestures(lastProgress >= 2);
+  };
+  const finishTouch = () => {
+    if (!touch || touch.multi) { touch = null; return; }
+    const dx = touch.x - touch.startX;
+    const dy = touch.y - touch.startY;
+    const travel = Math.max(Math.abs(dx), Math.abs(dy));
+    const { onControl } = touch;
+    touch = null;
+    if (travel >= SWIPE_MIN) {
+      // The finger moving up is "up", like pressing the up arrow.
+      enter(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "arrowright" : "arrowleft") : (dy > 0 ? "arrowdown" : "arrowup"));
+    } else if (travel <= TAP_MAX && !onControl) {
+      // Taps stand in for B then A, but only once all eight swipes are in.
+      const swipes = EGG_CODE.slice(0, 8).join();
+      if (typed.slice(-8).join() === swipes) enter("b");
+      else if (typed.slice(-9, -1).join() === swipes && typed[typed.length - 1] === "b") enter("a");
+    }
+  };
+  addEventListener("touchstart", (event) => {
+    if (event.touches.length > 1) { if (touch) touch.multi = true; return; }
+    const t = event.touches[0];
+    touch = {
+      startX: t.clientX, startY: t.clientY, x: t.clientX, y: t.clientY, multi: false,
+      onControl: !!(event.target.closest && event.target.closest("a, button, input, textarea, select, label, [contenteditable]")),
+    };
   }, { passive: true });
+  addEventListener("touchmove", (event) => {
+    if (!touch) return;
+    if (event.touches.length > 1) { touch.multi = true; return; }
+    const t = event.touches[0];
+    touch.x = t.clientX;
+    touch.y = t.clientY;
+  }, { passive: true });
+  addEventListener("touchend", (event) => {
+    if (!touch) return;
+    const t = event.changedTouches[0];
+    if (t) { touch.x = t.clientX; touch.y = t.clientY; }
+    finishTouch();
+  }, { passive: true });
+  addEventListener("touchcancel", finishTouch, { passive: true });
 
   window.playEasterEgg = play; // handy for testing from the console
 })();
